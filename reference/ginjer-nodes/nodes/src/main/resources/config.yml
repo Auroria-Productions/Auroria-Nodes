@@ -1,0 +1,1043 @@
+# Note about times:
+# 1 hour = 3600000 ms
+# 2 hour = 7200000 ms
+# 24 hour = 86400000 ms
+# 48 hour = 172800000 ms
+# 72 hour = 259200000 ms
+
+# ===================================
+# engine settings
+# only adjust if know what doing
+# ===================================
+# disable world when nodes world.json or towns.json fails due to errors
+# (e.g. stops block place/destroy and other world interactions)
+disableWorldWhenLoadFails: true
+
+# save period in ticks
+savePeriod: 600
+
+# backup period in ms
+backupPeriod: 3600000
+
+# main background task in ticks
+mainPeriodicTick: 1200
+
+# over max claim reminder in ticks
+overMaxClaimsReminderPeriod: 24000
+
+# nametag update period in ticks
+nametagUpdatePeriod: 80
+nametagPipelineTicks: 16 # how many ticks to divide nametag updates
+
+# force copy to dynmap
+dynmapCopyTowns: false
+
+# GinjerMap web map (ginjermap/ plugin in this repo).
+# Exports small JSON layers that the map polls. Only changed layers are written,
+# and all serialization/IO runs off the main thread.
+mapExport:
+  enabled: true
+  # export even when the GinjerMap plugin isn't installed (e.g. serving the files yourself)
+  always: false
+  path: "plugins/GinjerMap/web/data/nodes"
+  # towns/nations/claims refresh rate (ticks)
+  statePeriodTicks: 100
+  # war flags, occupation, warzones, raids refresh rate (ticks)
+  livePeriodTicks: 40
+  # include supply-line connectivity (computed one town per tick)
+  supplyLines: true
+  # show each resource's settings (income, mining drops, capture multipliers) when hovering it on the map
+  resourceDetails: true
+
+# ===================================
+# nametag configs
+# ===================================
+# use internal armorstand teleport nametag system
+useNametags: true
+
+# ===================================
+# afk kick time
+# ===================================
+# time in milliseconds for afk time before player kicked
+# adjusts claims progress as penalty
+# 10 min = 600000 ms
+# 20 min = 1200000 ms
+afkKickTime: 900000
+
+# ===================================
+# general permissions
+# ===================================
+# interact in area with NO TERRITORIES (build, destroy, etc...)
+canInteractInEmpty: false
+
+# interact in territory without town (build, destroy, etc...)
+canInteractInUnclaimed: true
+
+# only allow shearing in sheep node
+requireSheepNodeToShear: true
+
+# ===========================================
+# town settings
+# ===========================================
+# 24 hour = 86400000 ms
+# 48 hour = 172800000 ms
+# 72 hour = 259200000 ms
+townCreateCooldown: 172800000
+townMoveHomeCooldown: 172800000
+
+# update town state time
+# 1 min = 1200
+townCooldownUpdateTick: 2400
+
+# town spawn timer in seconds (converted to ticks by num * 20)
+townSpawnTime: 10
+
+# outpost configs
+# item cost for outpost teleport
+outpostTeleportCost:
+  diamond: 1
+
+# ===========================================
+# nation settings
+# ===========================================
+# allow teleporting to other towns in nation
+allowNationTownSpawn: false
+
+# item cost to teleport to nation's towns
+nationTownTeleportCost:
+  diamond: 1
+
+# allow members of the same nation to attack eachother
+allowNationFriendlyFire: false
+
+# ===================================
+# alliance settings
+# ===================================
+# allow allied nations to attack eachother
+allowAllyFriendlyFire: true
+
+# ===========================================
+# Town Claim Settings
+# 
+# claims = baseClaims + bonusClaims + claimsPerPlayer * players
+# ===========================================
+
+# territory cost parameters
+#   cost = base + scale * chunks
+territoryCostBase: 10
+territoryCostScale: 0.25
+
+# initial claims GIVEN TO PLAYER when towns created
+townInitialClaims: 25
+
+# penalty scale factor when over initial claim allowed:
+# penalty = scale * (territory.cost - initialAllowed) if cost > allowed
+initialOverClaimsAmountScale: 2
+
+# extra base claim power per town
+townClaimsBase: 20
+
+# max claim power per town (-1 for unlimited)
+townClaimsMax: -1
+
+# claim power per player
+playerClaimsInitial: 1     # initial player claims on town join
+playerClaimsMax: 25        # max player claims for town
+playerClaimsIncrease: 2    # claims increase per tick period
+
+# town penalty decay
+townPenaltyDecay: 2
+
+# time periods for town claims penalty decay and player power gain, milliseconds
+# 1 hour = 3600000 ms
+# 2 hour = 7200000 ms
+townClaimsPenaltyDecayPeriod: 3600000
+playerClaimsIncreasePeriod: 3600000
+
+# flag for enforcing over max claims
+# for now, this affects all systems (income, hidden ore, crops,
+# breeding, etc...)
+overClaimsPenalty: true
+  
+# reduced resource rate when over max claim (runs Math.random() < rate)
+overClaimsMaxPenalty: 0.5
+
+# allow claiming territories even if town already over max claims
+overClaimsAllowClaim: false
+
+# ===========================================
+# Resource Settings
+# ===========================================
+# territory do income enabled and income time
+incomeEnabled: true
+incomePeriod: 3600000
+
+# enable income rate scaling based on percent of town claim power used
+# e.g. if 100 claim power is needed for all territories
+# and town players have total of 60 claim power
+# then income rate is scaled by,
+#     r = (sum of player claim power) / (sum of territory claim)
+#       = 60 / 100
+#       = 0.6
+incomeScaleByClaimPower: true
+# min/max income scaling factor, >1.0 for max is allowed
+incomeScaleMin: 0.1
+incomeScaleMax: 1.0
+
+# default resources in all territories
+globalResources:
+  income:
+    gold_ingot: 1
+  ore:
+    coal: [0.03, 1, 3]
+    iron_ore: [0.015, 1, 2]
+    gold_ore: [0.015, 1, 1]
+    diamond_ore: 0.007
+  crops:
+    wheat: 0.25
+    potato: 0.25
+  animals:
+
+# allow mining/harvesting/breeding in unowned territories
+allowOreInWilderness: false
+allowCropsInWilderness: false
+allowBreedingInWilderness: false
+
+# allow mining in captured territories
+allowOreInCaptured: true
+
+# allow mining/harvesting in other towns in nation
+allowOreInNationTowns: true
+
+# require crops or animal breeding to be above ground in sky light (set = 0 to disable)
+cropsMinSkyLight: 14
+breedingMinSkyLight: 14
+
+# min/max y levels allowed for crop growth and animal breeding
+cropsMinYHeight: 16
+cropsMaxYHeight: 255
+breedingMinYHeight: 16
+breedingMaxYHeight: 255
+
+# ===========================================
+# Tax Settings
+# ===========================================
+# fraction of territory income that goes to occupier
+taxIncomeRate: 0.2
+
+# probability that a hidden ore event resources go to occupier
+taxMineRate: 0.2
+
+# probability that all of a crop's harvest items go to occupier
+taxFarmRate: 0.2
+
+# probability that a new animal goes to occupier (as a spawn egg item)
+taxAnimalRate: 0.2
+
+# ===========================================
+# War Settings
+# ===========================================
+# Nodes internal explosion block damage restrictions
+restrictExplosions: true
+onlyAllowExplosionsDuringWar: true
+
+# disable building within this distance of flag (square range)
+flagNoBuildDistance: 1
+
+# disable building for y > flag base block + flagNoBuildYOffset
+flagNoBuildYOffset: -1
+
+# time to capture a chunk in ticks
+chunkAttackTime: 1200
+
+# modifiers to chunk attack time
+chunkAttackFromWastelandMultiplier: 2.0
+chunkAttackHomeMultiplier: 2.0
+
+# number of chunks a player can attack at same time
+maxPlayerChunkAttacks: 1
+
+# allow breaking allies war flags
+allowBreakingAlliesFlags: false
+
+# flag sky beacon config
+flagBeaconSize: 6          # in range [2, 16]
+flagBeaconMinSkyLevel: 100 # minimum height level in sky
+flagBeaconSkyLevel: 50     # height level above blocks
+# Sky beacons are off by default: creating them is expensive when many flags are up.
+flagBeaconEnabled: false
+# Update lighting when placing beacon blocks (expensive, keep false)
+flagBeaconUpdateLighting: false
+# Floating text above war flags
+flagHologramsEnabled: true
+
+# Only players within this many chunks of a flag get its attack boss bar. 0 = all online players.
+warBossBarMaxDistanceChunks: 6
+
+# Limits on attacks. 0 = no limit.
+maxConcurrentAttacks: 0
+maxAttacksPerTown: 0
+
+# ===========================================
+# Town rules
+# ===========================================
+# Town PvP switch: towns turn PvP on or off on their own land with /town pvp on|off
+# (admins: /nda pvp <town> on|off). While a town has it off, players cannot hurt each
+# other on that town's land, except enemies during a war. Off by default.
+togglePVPMechanic: false
+# false = only admins can change it
+canToggleTownPVP: true
+# time between changes: milliseconds or a duration like 3d, 12h, 30m
+pvpToggleCooldown: 3d
+
+# Mob protection: the listed animals inside a town can only be hurt by that town's own
+# members and nation. protectedMobsIfPVPOff are only protected while the town's PvP is off
+# (needs togglePVPMechanic).
+mobProtection: false
+protectedMobs:
+  - COW
+  - SHEEP
+protectedMobsIfPVPOff:
+  - HORSE
+  - SKELETON_HORSE
+  - DONKEY
+  - MULE
+
+# Town UUIDs whose players take no damage at all
+# invulnerabilityTowns:
+# - caffd0a0-042e-4022-910f-608be7fd277e
+
+# Hours of playtime needed before a player can place war flags (0 = no limit)
+hoursRequiredToJoinWars: 0
+
+# While a war is on, survival players standing on land of a town they are neutral to
+# (not own, nation, ally or enemy) get weakness and slowness
+warSickness: false
+
+# Cooldown between town renames (milliseconds or 10s, 30m, 1d), 0 = none
+townRenameCooldown: 0
+
+# Most territories a town can hold (0 = no limit)
+maxClaimsPerTown: 0
+
+# /nda inactive lists residents who have not logged in for this many days (0 = give the days yourself)
+maxDaysForInactivity: 30
+
+# Time of day (server time, HH:mm) when the economy's daily tax and upkeep run.
+# Empty = every 24 hours after the last run.
+dailyEventTime: ""
+
+# Local chat (/localchat or /lc) and roleplay chat (/rpchat or /rp): only players within
+# this many blocks hear you
+localChatDistance: 100
+rpChatDistance: 100
+
+# Global chat prefix: 0 = [Nation|Town], 1 = [Town], 2 = none
+chatPrefixMode: 0
+
+# Proximity alliances: you cannot ally a town or nation that is too far away. The distance
+# is measured in blocks between the closest pair of town homes (a nation counts all of
+# its towns). Applies to offering and accepting. Players with nodes.ally.proximity.bypass
+# are exempt.
+allyProximity: false
+allyProximityDistance: 1500
+
+# Attack rules
+noFriendlyFire: false
+allowUnownedAttack: true
+allowBorderSkirmishFromWilderness: true
+allowAllInteractsInFlaggedChunks: true
+
+# Flag block that stays in place while a flag is up
+staticFlagblock: true
+staticFlagblockMaterial: DEEPSLATE
+
+# Capture time scales with defenders online in the chunk
+playersInChunkMultiplier: false
+playersInChunkMultiplierPerPlayer: 0.05
+playersInChunkMultiplierMin: 0.5
+
+# Retries and duration (ticks) of the fix for players glitching into blocks
+antiBlockGlitchAttempts: 4
+antiBlockGlitchDurationTicks: 60
+
+# Only whitelisted players may take part in wars. Others are sent this command.
+warPlayerWhiteList: false
+whitelistDenyCommand: "kick %player% Not on the war whitelist"
+
+# How long a player must wait after leaving (or being kicked from) a town in a nation
+# before joining a town in a different nation. Examples: 30m, 2h, 2d, 1d12h.
+# -1 = no cooldown. Admin commands ignore it.
+nationJoinCooldown: "-1"
+
+# Skulls in the GUI: 0 = always, 1 = not during war, 2 = never
+skullsGUIToggle: 1
+
+# Raids. Times in minutes. Rewards are MATERIAL: amount.
+raid:
+  enabled: true
+  prepMinutes: 15
+  liveMinutes: 30
+  cancelDefenderWinWindowMinutes: 5
+  cooldownMinutes: 120
+  minDefenderOnline: 1
+  attackerReward: {}
+  defenderReward: {}
+
+# allow war permissions during skirmish mode
+allowDestructionDuringSkirmish: false
+
+# bypass permissions and allow extended ally interactions in towns
+warPermissions: true
+
+# allow leaving towns during war
+canLeaveTownDuringWar: true
+
+# allow creating towns during war
+canCreateTownDuringWar: false
+canDestroyTownDuringWar: false
+canLeaveNationDuringWar: false
+
+# global disable annexing
+annexDisabled: false
+
+# capturing a town's home annexes the whole town right away (needs annexing enabled during war).
+# false = the home is only occupied and the attacker uses /town annex, like any other territory.
+# Normal (non-home) territories always need /town annex.
+instantAnnexOnCapture: true
+
+# when a town's home territory is captured, the town is kept and joins the attacker's nation
+# (it leaves its old nation first). Does nothing if the attacker has no nation.
+# Takes priority over annexing the home, which would destroy the town.
+capturedTownJoinsNation: false
+
+# with capturedTownJoinsNation: the captured town keeps only its home territory,
+# all its other territories are annexed by the attacker
+onlyKeepCapital: false
+
+# can claim territory / change the nation capital while war is on
+canClaimDuringWar: true
+canSetCapitalDuringWar: true
+# false = a nation with enemies cannot change its capital
+canSetCapitalIfEnemies: true
+
+# false = chests, barrels and shulker boxes are not destroyed by explosions
+explodeChests: true
+
+# war declarations are refused when the closest towns of the two sides are farther apart
+# than warProximityDistance blocks (same idea as allyProximity)
+warProximity: false
+warProximityDistance: 1500.0
+
+# a new town's territory must be at least this many chunks from every other town's territories
+minimumDistanceForNewTown: false
+minimumDistanceForNewTownVal: 32
+
+# hidden ore (ore blocks give the territory's ores) and whether silk touch can trigger it
+hiddenOreMechanic: true
+hiddenOreSilktouch: false
+
+# custom tab list with four columns: Staff | Nation | Allies | Enemies.
+# Needs the PacketEvents plugin; without it the normal tab list stays. Text is MiniMessage.
+# Nation lists the online players of your nation's towns (leaders and officers get icons),
+# Allies and Enemies list the online players of each allied / enemy town.
+tabList:
+  enabled: false
+  updateTicks: 40
+  columnHeaders:
+    staff: "<gradient:#FFAA50:#FFD080><bold>STAFF</bold></gradient>"
+    nation: "<gradient:#7DD4FF:#A0E0FF><bold>NATION</bold></gradient>"
+    allies: "<gradient:#77DD77:#A0EEA0><bold>ALLIES</bold></gradient>"
+    enemies: "<gradient:#FF7070:#FFA0A0><bold>ENEMIES</bold></gradient>"
+  # lines above and below the columns. Placeholders: %ping% %player% %online% %tps%
+  header:
+    - ""
+  footer:
+    - "<gray>Ping: <green>%ping%ms</green> <dark_gray>|</dark_gray> <gray>Online: <white>%online%</white>"
+  # staff are listed by the first permission they have, top to bottom
+  staffPermissions:
+    admin:
+      permission: "nodes.staff.admin"
+      prefix: "<#FFCC50>✦ "
+      color: "<#FFDD80>"
+    mod:
+      permission: "nodes.staff.mod"
+      prefix: "<#50C8FF>✦ "
+      color: "<#70D8FF>"
+    helper:
+      permission: "nodes.staff.helper"
+      prefix: "<#D4A0FF>✦ "
+      color: "<#E0B0FF>"
+  icons:
+    nationLeader: "<gold>♛ </gold>"
+    leader: "<gold>★ </gold>"
+    officer: "<yellow>✦ </yellow>"
+    member: "<dark_gray>▪ </dark_gray>"
+  # most players shown under one town before "+N more"
+  maxPlayersPerSection: 15
+  showPlayerPing: false
+
+# Server calendar: /calendar shows a month with the day's events, admins manage it with
+# /nda calendar. Events can repeat and can start a war or the mining boost at their time.
+calendar:
+  enabled: true
+  # time zone for event times, e.g. Europe/London. Empty = the server's
+  timezone: ""
+  # broadcast the day's events at this time (HH:mm). Empty = no daily broadcast
+  dailyAnnounceTime: "12:00"
+  # show today's events and active announcements to players when they join
+  showOnJoin: true
+  # minutes before an event's time to remind everyone (0 = off)
+  remindMinutes: 10
+  # an event whose time passed while the server was down still starts if it is this recent
+  catchUpMinutes: 30
+  # how long /nda calendar announce stays on the calendar (0 = until removed)
+  announcementHours: 24
+
+# Exploration: admins place points of interest with /nda poi add, players find them by
+# walking close. /map lists what a player found; nothing is shown before it is discovered.
+poi:
+  enabled: true
+  # how often (ticks) players are checked against the POIs
+  checkTicks: 40
+  # discovery radius given to a new POI, in blocks (3D, so deep caves work)
+  defaultRadius: 12
+  # a new or moved POI cannot be found for this many seconds, so the admin placing it does not
+  # discover it by standing there (/nda poi activate <id> skips the wait)
+  activationDelaySeconds: 120
+  # tell everyone when a POI is found for the first time
+  announceFirstDiscovery: true
+  # show "found/total" in the /map title
+  showTotal: true
+  # money paid for the first find of a new POI of each type (set when the POI is created)
+  defaultMoney:
+    village: '5'
+    ruin: '5'
+    cave: '5'
+    shrine: '10'
+    shipwreck: '5'
+    dungeon: '15'
+    camp: '10'
+  # titles earned by number of POIs found (players pick one with /map title)
+  milestones:
+    5: "&7Wanderer"
+    10: "&aExplorer"
+    25: "&bPathfinder"
+    50: "&6Cartographer"
+
+# Skills: mining, farming, woodcutting and hunting level up as players do them (/skills).
+# Each level gives a small chance of one extra drop from that activity. Blocks a player
+# placed give no xp, crops must be fully grown, and animals bred or spawned by spawners and
+# eggs give none. Set levels earn titles (picked with /map title).
+skills:
+  enabled: true
+  # multiplies all xp gained (2.0 = double xp weekend)
+  xpMultiplier: 1.0
+  maxLevel: 50
+  # xp from level L to L+1 is baseXp x L ^ levelExponent
+  baseXp: 50
+  levelExponent: 1.5
+  # chance of an extra drop = (level - 1) x this, up to extraDropPercentMax
+  extraDropPercentPerLevel: 0.5
+  extraDropPercentMax: 25
+  showActionBar: true
+  mining:
+    xp:
+      COAL_ORE: 2
+      COPPER_ORE: 2
+      IRON_ORE: 3
+      GOLD_ORE: 4
+      LAPIS_ORE: 3
+      REDSTONE_ORE: 3
+      EMERALD_ORE: 8
+      DIAMOND_ORE: 10
+      NETHER_QUARTZ_ORE: 3
+      NETHER_GOLD_ORE: 2
+      ANCIENT_DEBRIS: 15
+  farming:
+    xp:
+      WHEAT: 2
+      CARROTS: 2
+      POTATOES: 2
+      BEETROOTS: 2
+      NETHER_WART: 3
+      MELON: 3
+      PUMPKIN: 3
+  woodcutting:
+    xpPerLog: 2
+  hunting:
+    animalXp: 1
+    monsterXp: 2
+    # per mob overrides
+    xp:
+      ENDERMAN: 5
+      WITCH: 6
+  # titles earned at a skill level (picked with /map title)
+  titles:
+    mining:
+      10: "&7Prospector"
+      25: "&6Master Miner"
+    farming:
+      10: "&aFarmhand"
+      25: "&2Master Farmer"
+    woodcutting:
+      10: "&eLumberjack"
+      25: "&6Master Woodsman"
+    hunting:
+      10: "&cHunter"
+      25: "&4Master Hunter"
+
+# Sharding (experimental): run Nodes on several servers that share one world behind Velocity
+# (Reef sharding). One server is the leader and owns all towns, nations, claims and wars. The
+# others are followers: they copy the leader's state through Redis so protection and info work
+# there, but commands that change things only work on the leader for now. Every server needs
+# the same world.json to start with. See SHARDING-DESIGN.md. /nda shards shows the status.
+sharding:
+  enabled: false
+  # leader (exactly one server) or follower
+  role: leader
+  # this server's name, as in velocity.toml
+  name: main
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: ""
+    database: 0
+  # change this if two separate Nodes networks share one Redis
+  keyPrefix: nodes
+  # how often the leader checks for changes to publish, and followers check they missed none
+  syncSeconds: 5
+
+# Duels (/duel): two players fight in an admin-made arena, nobody really dies and both are put
+# back exactly as before. Set up with /nda duel arena add <name>, then spawn1, spawn2 and spectate
+# while standing in place. /nda duel kit save <name> copies your inventory as a kit.
+# Duelists can only hurt each other, which overrides town PvP and friendly fire rules.
+duel:
+  enabled: true
+  # how long a challenge waits to be accepted
+  requestSeconds: 60
+  countdownSeconds: 5
+  # a duel that is still going after this is a draw
+  maxSeconds: 300
+  # money wagers are held until the duel ends; the winner gets both
+  allowWager: true
+  # largest wager, 0 for no limit
+  maxWager: 0
+  # Elo rating: everyone starts at eloStart; eloK is the most a single duel can move (higher =
+  # faster changes). Beating a stronger player earns more. /duel top is ordered by rating.
+  eloStart: 1000
+  eloK: 32
+  # true = a kit must always be picked; defaultKit is used when none is named ("" = own gear)
+  kitOnly: false
+  defaultKit: ""
+  # announce results in public chat
+  announce: true
+  # commands usable during a duel (duel is always allowed)
+  allowedCommands:
+    - msg
+    - tell
+    - w
+    - r
+    - reply
+
+# chat: lines starting with > turn green, and text put in front of every player's name (& colors)
+greenText: true
+chatPrefix: ""
+
+# can only annex territories during war time
+canOnlyAnnexDuringWar: true
+
+# war whitelist: only allow attacking/destroying given town uuids,
+# warWhitelist:
+# - caffd0a0-042e-4022-910f-608be7fd277e
+
+# war blacklist: DO NOT ALLOW attacking given town uuids (PROTECTED from war)
+# warBlacklist:
+# - caffd0a0-042e-4022-910f-608be7fd277e
+
+# annex blacklist
+# annexBlacklist:
+# - caffd0a0-042e-4022-910f-608be7fd277e
+
+# only allow towns on the whitelist to annex territories from each other
+onlyWhitelistCanAnnex: true
+onlyWhitelistCanClaim: true
+
+# multiplier for warping home when occupied
+occupiedHomeTeleportMultiplier: 12.0
+
+### List of town UUIDs to allow building in occupied territory.
+### War whitelist often used to create AI towns that can be attacked
+### by anyone. People want to build in occupied territory from these
+### towns during non-war time. This list allows building/interacting
+### in these occupied towns.
+# allowControlInOccupiedTownList:
+# - caffd0a0-042e-4022-910f-608be7fd277e
+
+# ===========================================
+# Truce Settings
+# ===========================================
+# truce period in milliseconds
+# 24 hour = 86400000 ms
+# 48 hour = 172800000 ms
+# 72 hour = 259200000 ms
+trucePeriod: 259200000
+
+# ===========================================
+# Ports Settings
+# ===========================================
+# sea level for port warps
+seaLevel: 62.0
+
+# time to warp to a port in seconds
+portWarpTime: 5.0
+
+# allow port warp without a boat
+allowPortWarpWithoutBoat: false
+
+# warp time multiplier when warping without a boat or ship (1.0 = same as in a ship)
+portNotInShipMultiplier: 2.0
+
+# Beacon pillars that mark ports (off by default). A pillar is placed at each port's
+# x/z in the main world, topped with light blocks. It starts at the height the port was
+# requested at (/port request); ports made without a request height (/nda port create)
+# start at startY. Deleting a port removes its pillar.
+portBeacon:
+  enabled: false
+  pillarMaterial: BEDROCK
+  pillarHeight: 20
+  startY: 50
+  lightMaterial: BEACON
+  lightHeight: 1
+
+# ===========================================
+# Supply Lines
+# ===========================================
+# Territories that can't reach the town's home through the town's own,
+# nation or allied territories get reduced income.
+supplyLines:
+  enabled: true
+  # income multiplier for cut-off territories (0.0 - 1.0)
+  cutIncomeMultiplier: 0.25
+  # flag capture time multiplier on cut-off territories for enemy attackers
+  # (0.5 = captured twice as fast, 1.0 = no change)
+  cutCaptureTimeMultiplier: 0.5
+  # a territory blocks supply when this fraction of its chunks is held by
+  # enemies (an enemy-captured core always blocks). 0 = only core captures block
+  chunkBlockFraction: 0.5
+  # wasteland (land/sea with no territories, and unclaimed territories)
+  # connects every territory touching it, so islands stay supplied as long
+  # as your home can reach wasteland through supplied territories
+  wastelandRoutes: true
+
+# ===========================================
+# Supply Drops
+# ===========================================
+# Drops land at points set with /supplydrop addpoint. Loot is set with
+# /supplydrop loot add while holding an item.
+supplyDrops:
+  enabled: true
+  # time between drops, plus or minus a random jitter
+  intervalMinutes: 180
+  jitterMinutes: 30
+  # warning before the drop lands (players can travel to it)
+  warningSeconds: 300
+  # drop disappears if nobody claims it in time
+  despawnMinutes: 20
+  # the chest slowly falls from this many blocks up during the warning
+  fallHeight: 60
+  # right-click the drop and stay inside the ring for this long to claim it;
+  # leaving the ring interrupts the claim
+  claimSeconds: 60
+  claimRadius: 4.0
+  # loot rolls per drop (weighted by each entry's weight)
+  itemsPerDrop: 3
+  # skip a drop if fewer players are online
+  minPlayersOnline: 5
+  # announce drops on the war Discord webhook
+  discord: true
+
+# ===========================================
+# Discord: war, flag war, raids and warzones
+# ===========================================
+# Discord webhook URLs (leave empty to turn that feed off).
+# discordWebhookWar: general war announcements (war start/end, surrenders, supply drops...)
+# discordWebhookFlagWar: flag attacks (flags placed, captured, defended)
+discordWebhookWar: ""
+discordWebhookFlagWar: ""
+discordRelayWar: true
+discordRelayFlagWar: true
+
+# separate webhooks for raid / warzone announcements
+# (leave empty to use discordWebhookWar)
+discordWebhookRaids: ""
+discordWebhookWarzones: ""
+discordRelayRaids: true
+discordRelayWarzones: true
+
+# ===========================================
+# Vassals
+# ===========================================
+vassals:
+  enabled: true
+  # fraction of the vassal's income paid to the overlord each income cycle
+  tributeRate: 0.2
+  # how long a vassal must wait before it can /vassal revolt
+  revoltCooldownHours: 72
+  offerTimeoutSeconds: 120
+
+# ===========================================
+# Fortified nodes
+# ===========================================
+# /t fortify upgrades the territory you're in. Costs and upkeep are paid
+# from the town's fortification treasury (members add items with
+# /t fortify deposit). Upkeep is taken every income cycle and the level
+# drops by 1 if the treasury can't pay it. Enemy flag capture time is
+# multiplied. Any materials work for cost/upkeep, and you can add or remove
+# levels. The treasury only accepts materials used below.
+fortify:
+  enabled: true
+  levels:
+    1:
+      captureTimeMultiplier: 1.25
+      cost:
+        IRON_BLOCK: 8
+      upkeep:
+        IRON_INGOT: 4
+    2:
+      captureTimeMultiplier: 1.5
+      cost:
+        GOLD_BLOCK: 8
+      upkeep:
+        GOLD_INGOT: 4
+    3:
+      captureTimeMultiplier: 2.0
+      cost:
+        DIAMOND_BLOCK: 4
+      upkeep:
+        DIAMOND: 2
+
+# ===========================================
+# Bounties
+# ===========================================
+# Players fund bounties on other players with real ores from their inventory.
+# Whoever kills the target claims them. No money is created or removed.
+# /bounty add <player> <ore> <amount> [reason]
+bounties:
+  enabled: true
+  # TOWN_INCOME: ores go to the killer's town income (/t income). Items with
+  #   custom names or enchantments can't be stored there and go to the killer.
+  # PLAYER: ores go straight to the killer's inventory.
+  rewardDestination: TOWN_INCOME
+  # when rewardDestination is TOWN_INCOME, a killer without a town receives the
+  # ores directly. If false, the bounty stays active for a killer with a town.
+  townlessPlayerFallback: true
+  maxStacksPerBounty: 36
+  maxContributionsPerTarget: 100
+  # only these materials can be used for rewards, including packages
+  allowedMaterials:
+    - DIAMOND
+    - EMERALD
+    - COAL
+    - RAW_IRON
+    - RAW_GOLD
+    - RAW_COPPER
+    - LAPIS_LAZULI
+    - REDSTONE
+    - QUARTZ
+    - DIAMOND_ORE
+    - DEEPSLATE_DIAMOND_ORE
+    - EMERALD_ORE
+    - DEEPSLATE_EMERALD_ORE
+    - IRON_ORE
+    - DEEPSLATE_IRON_ORE
+    - GOLD_ORE
+    - DEEPSLATE_GOLD_ORE
+    - COPPER_ORE
+    - DEEPSLATE_COPPER_ORE
+    - COAL_ORE
+    - DEEPSLATE_COAL_ORE
+    - LAPIS_ORE
+    - DEEPSLATE_LAPIS_ORE
+    - REDSTONE_ORE
+    - DEEPSLATE_REDSTONE_ORE
+    - NETHER_GOLD_ORE
+    - NETHER_QUARTZ_ORE
+    - ANCIENT_DEBRIS
+  # preset rewards (taken from the funder's inventory):
+  # /bounty addreward <player> <package>
+  packages:
+    diamonds:
+      - DIAMOND:16
+    emeralds:
+      - EMERALD:32
+    mixed-ores:
+      - RAW_IRON:64
+      - RAW_GOLD:16
+      - DIAMOND:8
+  # a contribution can only be claimed after it is this old
+  minimumAgeSeconds: 60
+  placementCooldownSeconds: 30
+  # a hunter can claim on the same target once per this time
+  claimCooldownSeconds: 3600
+  minimumAccountAgeSeconds: 3600
+  # claims and placement are blocked between these players
+  blockSameTown: true
+  blockSameNation: true
+  blockAllies: true
+  # shared IP blocking needs correct IP forwarding behind a proxy
+  blockSameIp: true
+  disabledWorlds: []
+  broadcastPlacement: true
+  broadcastClaims: true
+
+# ===========================================
+# Economy
+# ===========================================
+# Nation, personal and business accounts, recurring trade routes between
+# nations, loans from a funded reserve and infrastructure upkeep. This
+# currency is separate from Vault. Staff create money with /economyadmin issue.
+# Resources are virtual stock numbers per nation, not physical items.
+economy:
+  enabled: true
+  # materials nations can trade on routes
+  resources:
+    - COAL
+    - IRON_INGOT
+    - COPPER_INGOT
+    - GOLD_INGOT
+    - DIAMOND
+    - EMERALD
+    - REDSTONE
+    - LAPIS_LAZULI
+  loans:
+    maximum: '10000'
+    periodHours: 24
+    termPeriods: 30
+    interestBasisPoints: 100
+  # upkeep per registered unit per real 24 hours, captured at registration
+  infrastructure:
+    railway: '5.00'
+    port: '20.00'
+    road: '1.00'
+    power: '10.00'
+  # optional fees: percent added on top of /economy pay, or taken from market sales.
+  # Fees go into the reserve, which funds loans. 0 = off.
+  fees:
+    transferPercent: 0
+    marketPercent: 0
+  # optional tax: every 24 hours each town pays this percent of its treasury to its
+  # nation (the capital pays nothing). 0 = off.
+  tax:
+    townPercentPerDay: 0
+  # /economy sell and /economy prices: the server buys these items at this price each.
+  # Items with custom names or enchantments are never bought. Money is paid to the
+  # wallet. dailyLimit caps what one player (or one town) can sell per day, 0 = no cap.
+  sell:
+    dailyLimit: '0'
+    prices:
+      COAL: '0.50'
+      IRON_INGOT: '2.00'
+      COPPER_INGOT: '1.00'
+      GOLD_INGOT: '4.00'
+      DIAMOND: '20.00'
+      EMERALD: '15.00'
+      REDSTONE: '0.25'
+      LAPIS_LAZULI: '0.50'
+  # money paid to a player's wallet for each vote. Needs NuVotifier/Votifier, or a vote
+  # plugin that runs /economyadmin vote <player> [service]. 0 = off.
+  vote:
+    reward: '0'
+  # player market: /economy market sell|buy|cancel|list|mine and the menu
+  market:
+    enabled: true
+    maxListingsPerPlayer: 10
+    maxPrice: '1000000'
+  # server shop (/economy shop, and the Server shop in /economy menu): preset items the
+  # server SELLS at a fixed price each. The money leaves circulation. Keep these prices
+  # above the sell prices so nobody can buy from the shop and sell straight back for profit.
+  shop:
+    prices:
+      COAL: '1.00'
+      IRON_INGOT: '4.00'
+      COPPER_INGOT: '2.00'
+      GOLD_INGOT: '8.00'
+      DIAMOND: '40.00'
+      EMERALD: '30.00'
+      REDSTONE: '0.50'
+      LAPIS_LAZULI: '1.00'
+      BREAD: '2.00'
+      COOKED_BEEF: '3.00'
+  # stock market (/economy shop and the Server exchange in /economy menu). Items listed
+  # here are bought AND sold by the server at a price that follows its stock: few units
+  # left = higher price, lots of units = lower price. Players sell into the stock and buy
+  # out of it. Every restockMinutes the stock moves restockPercent of the way back to its
+  # target, so shortages refill and gluts drain. An item listed here replaces its entry in
+  # sell.prices and shop.prices; items only in those lists keep their fixed prices.
+  #   price:  the middle price when the server holds exactly its target stock
+  #   target: the stock the market settles at
+  exchange:
+    enabled: true
+    restockMinutes: 30
+    restockPercent: 20
+    # how strongly stock moves the price (0 = never, 0.5 = gentle, 1 = strong)
+    sensitivity: 0.5
+    # the price never goes below minMultiplier x price or above maxMultiplier x price
+    minMultiplier: 0.25
+    maxMultiplier: 4.0
+    # buying costs half of this percent above the middle price, selling pays half below it,
+    # so buying and selling straight back always loses money
+    spreadPercent: 20
+    # the server stops buying an item once its stock reaches target x capMultiplier
+    capMultiplier: 4
+    items:
+      COAL:
+        price: '0.75'
+        target: 4000
+      IRON_INGOT:
+        price: '3.00'
+        target: 2000
+      COPPER_INGOT:
+        price: '1.50'
+        target: 3000
+      GOLD_INGOT:
+        price: '6.00'
+        target: 1000
+      DIAMOND:
+        price: '30.00'
+        target: 300
+      EMERALD:
+        price: '22.00'
+        target: 300
+      REDSTONE:
+        price: '0.40'
+        target: 4000
+      LAPIS_LAZULI:
+        price: '0.75'
+        target: 3000
+      BREAD:
+        price: '2.50'
+        target: 1000
+      COOKED_BEEF:
+        price: '3.50'
+        target: 1000
+  # one-off costs (0 = free). townCreation is paid from the founder's wallet; claiming a
+  # territory costs territoryClaimPerPower x its claim power, paid from the town treasury.
+  # The money leaves circulation.
+  costs:
+    townCreation: '0'
+    territoryClaimPerPower: '0'
+  # daily upkeep taken from treasuries (0 = off): towns pay per claim power used, nations
+  # per town. A treasury that cannot pay is skipped and its members are told; nothing is deleted.
+  upkeep:
+    townPerClaimPerDay: '0'
+    nationPerTownPerDay: '0'
+  # plunder when a town's home is captured (0 = off): the attacker's town takes perClaimPower for
+  # every claim power the captured town used, at most maxPercentOfTreasury of its treasury
+  plunder:
+    perClaimPower: '0'
+    maxPercentOfTreasury: 50
+  # port warp fees (/port fee): fees are paid from the wallet into the port owner town's
+  # treasury. maxFee is the highest fee an owner may set.
+  ports:
+    maxFee: '1000'

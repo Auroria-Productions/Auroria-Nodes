@@ -1,0 +1,254 @@
+main: phonon.nodes.NodesPlugin
+name: nodes
+description: A towny-like plugin with a focus on performance and extensibility, designed
+  for large servers with many players and towns.
+authors:
+- phonon
+contributors:
+- Fond__
+- RobinSGE3361
+- Sakyq
+- dfah
+version: 1.21.11-core-dev.1
+conflicts:
+- Towny
+- TownyAdvanced
+- TownyChat
+- TownyNameUpdater
+- TownyFlight
+- TownyFly
+- TownyEssentials
+- TownyMobs
+- TownyNations
+- TownyTowns
+- TownyWar
+api-version: 1.21.11
+depend:
+- packetevents
+- Vault
+folia-supported: false
+softdepend:
+- kotlin
+- Essentials
+- PlaceholderAPI
+- TAB
+- LuckPerms
+- SuperVanish
+- PremiumVanish
+- ports
+- DiscordSRV
+- JMWaypointManager
+- UnlimitedNametags
+commands:
+  nodesadmin:
+    description: Admin commands for Nodes
+    aliases:
+    - nda
+    permission: nodes.helper
+    usage: /nodesadmin help or /nda help
+  minebuff:
+    description: Admin commands for Nodes
+    permission: nodes.admin
+  minebufftown:
+    description: Town-specific minebuff command
+    permission: nodes.admin
+  town:
+    description: Manage player towns (Nodes)
+    aliases:
+    - t
+    permission: nodes.command.town
+    usage: /town help or /t help
+  nation:
+    description: Manage player nations (Nodes)
+    aliases:
+    - n
+    permission: nodes.command.nation
+    usage: /nation help or /n help
+  nodes:
+    description: Nodes general info (Nodes)
+    aliases:
+    - nd
+    permission: nodes.command.nodes
+    usage: /nodes help or /nd help
+  noptions:
+    description: Manage minimap and chat preferences
+    aliases: []
+    permission: nodes.command.options
+    usage: /noptions
+  ally:
+    description: Make alliance with another town/nation
+    aliases: []
+    permission: nodes.command.ally
+    usage: /ally help
+  unally:
+    description: Break alliance with another town/nation
+    aliases: []
+    permission: nodes.command.unally
+    usage: /unally help
+  war:
+    description: Declare war on another town/nation
+    aliases: []
+    permission: nodes.command.war
+    usage: /war help
+  warzone:
+    description: Manage warzones (Nodes)
+    permission: nodes.command.warzone
+    usage: /warzone [name]
+  captime:
+    description: Show cap time for a node id
+    aliases: []
+    permission: nodes.command.captime
+    usage: /captime [nodeId]
+  peace:
+    description: Request peace with another town/nation
+    aliases: []
+    permission: nodes.command.peace
+    usage: /peace help
+  truce:
+    description: View truce list and times remaining
+    aliases: []
+    permission: nodes.command.truce
+    usage: /peace help
+  globalchat:
+    description: Set player chat to global
+    aliases:
+    - gc
+    permission: nodes.command.chat.global
+    usage: /globalchat or /gc
+  townchat:
+    description: Set player chat to town
+    aliases:
+    - tc
+    permission: nodes.command.chat.town
+    usage: /townchat or /tc
+  nationchat:
+    description: Set player chat to nation
+    aliases:
+    - nc
+    permission: nodes.command.chat.nation
+    usage: /nationchat or /nc
+  allychat:
+    description: Set player chat to allies
+    aliases:
+    - ac
+    permission: nodes.command.chat.ally
+    usage: /allychat or /ac
+  localchat:
+    description: Talk to players within 100 blocks
+    aliases:
+    - lc
+    permission: nodes.command.chat.local
+    usage: /localchat or /lc
+  player:
+    description: View player info
+    aliases:
+    - p
+    permission: nodes.command.player
+    usage: /player [name] or /p [name]
+  territory:
+    description: View territory info
+    aliases: []
+    permission: nodes.command.territory
+    usage: /territory or /territory [id]
+  port:
+    description: Port warps
+    aliases: []
+    permission: nodes.command.port
+    usage: /port help
+  report:
+    description: Report an issue to staff
+    aliases: []
+    permission: nodes.command.report
+    usage: /report <message>
+  language:
+    description: Set personal language
+    aliases:
+    - lang
+    permission: nodes.command.language
+    usage: /language en|de|el|tr
+  nekdr:
+    description: Show kill/death statistics
+    aliases:
+    - kdr
+    permission: nodes.command.nekdr
+    usage: /nekdr [name|top]
+  neadmin:
+    description: Reload imported extensions
+    aliases: []
+    permission: nodesextensions.admin
+    usage: /neadmin reload
+  neincome:
+    description: Show detailed town income info
+    aliases: []
+    permission: nodes.command.town
+    usage: /neincome info
+  nemarket:
+    description: Town market command
+    aliases: []
+    permission: nodes.command.town
+    usage: /nemarket help
+  miningtower:
+    description: Mining tower management
+    aliases: []
+    permission: nodesextensions.miningtower.submit
+    usage: /miningtower
+  miningtowerdebug:
+    description: Mining tower debug command
+    aliases: []
+    permission: nodesextensions.miningtower.rate
+    usage: /miningtowerdebug
+  netowncontrol:
+    description: Toggle town command availability
+    aliases: []
+    permission: nodesextensions.admin
+    usage: /netowncontrol <status|leave|spawn> [enable|disable]
+permissions:
+  nodes.staff:
+    default: op
+    children:
+      nodes.admin: true
+      nodes.mod: true
+      nodes.helper: true
+  nodes.helper:
+    default: op
+  nodes.mod:
+    default: op
+    children:
+      nodes.helper: true
+  nodes.admin:
+    default: op
+    children:
+      nodes.mod: true
+      nodes.helper: true
+  nodesextensions.admin:
+    default: op
+  nodesextensions.miningtower.submit:
+    default: op
+  nodesextensions.miningtower.rate:
+    default: op
+  nodes.command.options:
+    default: true
+  nodes.command.language:
+    default: true
+  nodes.command.warzone:
+    default: true
+  nodes.command.captime:
+    default: true
+  nodes.command.port:
+    default: true
+  nodes.command.nekdr:
+    default: true
+  nodes.command.town.fly:
+    default: op
+  nodes.command.town.create:
+    description: Allows a player to create a new town with /town create
+    default: true
+  nodes.command.nation.create:
+    default: op
+  nodes.leaderlaunch.bypass:
+    default: op
+  nodes.command.town.claim:
+    description: Allows town leaders/officers to claim territory with /town claim
+    default: true
+  nodes.command.chat.local:
+    default: true

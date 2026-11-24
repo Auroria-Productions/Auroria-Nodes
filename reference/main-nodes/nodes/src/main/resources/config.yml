@@ -1,0 +1,403 @@
+# MainNodes core migration. Existing MainNodes values preserved; legacy feature controls added.
+# No third-party server advertising is imported. Read CORE_MIGRATION.md before deployment.
+configVersion: 7
+disableWorldWhenLoadFails: true
+savePeriod: 600
+backupPeriod: 3600000
+mainPeriodicTick: 1200
+overMaxClaimsReminderPeriod: 24000
+nametagProximityEnabled: false
+nametagProximityRadius: 176.0
+nametagProximityRefreshTicks: 100
+nametagUpdatesPerTick: 20
+tabEnabled: true
+tabRefreshTicks: 40
+tabStaffWeightThreshold: 60
+tabStaffWeightPlaceholder: '%luckperms_meta_weight%'
+tabStaffFallbackPermission: nodes.staff
+tabColumnWidth: 24
+tabMaxEntriesPerColumn: 8
+tabFooterRows: 18
+tabFallbackSpacerRows: 8
+minimap:
+  defaultSize: 5
+  minSize: 3
+  maxSize: 6
+  onlineScaling:
+    enabled: true
+    rules:
+    - minPlayers: 200
+      minSize: 3
+      maxSize: 6
+    - minPlayers: 300
+      minSize: 3
+      maxSize: 5
+    - minPlayers: 500
+      minSize: 3
+      maxSize: 4
+dynmapCopyTowns: true
+afkKickTime: 900000
+canInteractInEmpty: false
+canInteractInUnclaimed: true
+requireSheepNodeToShear: true
+punishBlockGlitching: true
+punishBlockGlitchingDurationTicks: 60
+punishBlockGlitchingPoisonAmplifier: 1
+punishBlockGlitchingBlindnessAmplifier: 255
+punishBlockGlitchingDarknessAmplifier: 255
+punishBlockGlitchingAttempts: 5
+punishBlockGlitchingWindowTicks: 60
+disableRedstoneTicking: false
+townCreateCooldown: 172800000
+townMoveHomeCooldown: 86400000
+townSpawnTime: 10
+outpostWarpTimeTier1: 60.0
+outpostWarpTimeTier2: 30.0
+outpostWarpTimeTier3: 15.0
+miningoutpostText:
+  line1: '&bmining outpost'
+  line2: '&3ore area'
+  line3: '&7mine safely'
+outpostTeleportCost:
+  diamond: 1
+  gold: 16
+townPointsPerPlayerPerMinute: 1
+townShopFile: town_shop.yml
+townCreateCostEnabled: false
+townCreateCostFlatFee: 500.0
+townClaimCooldownEnabled: false
+townClaimCooldownPeriod: 86400000
+townClaimCooldownMaxClaims: 3
+townClaimPlayerRatioEnabled: false
+townClaimPlayerRatioPerPlayer: 1
+townRejoinCooldownEnabled: false
+townRejoinCooldown: 86400000
+allowNationTownSpawn: false
+nationTownTeleportCost:
+  diamond: 1
+  gold: 6
+allowNationFriendlyFire: false
+rallyCapEnabled: false
+rallyCapSize: 10
+rallyCapApplyToNations: true
+allowAllyFriendlyFire: true
+territoryCostBase: 10
+territoryCostScale: 0.25
+claimsPowerEnabled: true
+territoryCostEnabled: true
+townInitialClaims: 25
+initialOverClaimsAmountScale: 2
+townClaimsBase: 20
+townClaimsMax: -1
+playerClaimsInitial: 1
+playerClaimsMax: 25
+playerClaimsIncrease: 2
+townPenaltyDecay: 2
+townClaimsPenaltyDecayPeriod: 3600000
+playerClaimsIncreasePeriod: 3600000
+overClaimsPenalty: true
+overClaimsMaxPenalty: 0.5
+overClaimsAllowClaim: false
+incomeEnabled: true
+incomePeriod: 3600000
+incomeScaleByClaimPower: true
+incomeScaleMin: 0.1
+incomeScaleMax: 1.0
+globalResources:
+  income:
+    gold_ingot: 0 # Present for reference compatibility; preserves original disabled global income.
+  ore:
+    coal:
+    - 0.03
+    - 1
+    - 3
+    iron_ore:
+    - 0.015
+    - 1
+    - 2
+    gold_ore:
+    - 0.015
+    - 1
+    - 1
+    diamond_ore: 0.007
+    prismarine_shard:
+      chance: 0.0
+      min: 0
+      max: 0
+      lore:
+      - §aAncient fossil
+      - §2Mined deep from the earth
+      customname: §bAncient Fossils
+  crops:
+    wheat: 0.25
+    potato: 0.25
+  animals: null
+useTerritoryResourceValues: true
+nodeTypeFile: nodeType.yml
+allowOreInWilderness: false
+allowCropsInWilderness: false
+allowBreedingInWilderness: false
+allowOreInCaptured: true
+allowOreInNationTowns: true
+cropsMinSkyLight: 14
+breedingMinSkyLight: 14
+cropsMinYHeight: 16
+cropsMaxYHeight: 255
+breedingMinYHeight: 16
+breedingMaxYHeight: 255
+taxIncomeRate: 0.2
+taxMineRate: 0.2
+taxFarmRate: 0.2
+taxAnimalRate: 0.2
+restrictExplosions: true
+onlyAllowExplosionsDuringWar: true
+flagNoBuildDistance: 2
+flagNoBuildYOffset: 0
+chunkAttackTime: 1200
+chunkAttackHomeTime: 6000
+chunkAttackFromWastelandMultiplier: 2.0
+chunkAttackHomeMultiplier: 2.0
+maxPlayerChunkAttacks: 1
+allowBreakingAlliesFlags: false
+flagTopBlockMaterial: COBBLED_DEEPSLATE
+flagBeaconSize: 6
+flagBeaconMinSkyLevel: 100
+flagBeaconSkyLevel: 50
+flagPlacementMinHeight: 30
+flagPlacementMaxHeight: 220
+attackBossBarShowTimeRemaining: true
+allowDestructionDuringSkirmish: false
+warPermissions: true
+canLeaveTownDuringWar: true
+canCreateTownDuringWar: false
+canDestroyTownDuringWar: false
+canLeaveNationDuringWar: false
+annexDisabled: false
+canOnlyAnnexDuringWar: true
+onlyWhitelistCanAnnex: true
+onlyWhitelistCanClaim: true
+occupiedHomeTeleportMultiplier: 12.0
+leaderlaunch:
+  defaultSlots: 10
+  maxSlots: 30
+trucePeriod: 86400000
+seaLevel: 62.0
+portWarpTime: 5.0
+portWarpTimeTier1: 30.0
+portWarpTimeTier2: 15.0
+portWarpTimeTier3: 5.0
+allowPortWarpWithoutBoat: false
+rallyOverview:
+  enabled: true
+  bindAddress: 0.0.0.0
+  webPort: 8096
+  samplePeriodMs: 60000
+  historyDays: 30
+  pageTitle: Nation Rally Stats
+  defaultLastHours: 24
+  maxRows: 200
+  autoRefreshSeconds: 30
+  sortBy: avg
+marketOverview:
+  enabled: true
+  bindAddress: 0.0.0.0
+  webPort: 8097
+  historyDays: 60
+  pageTitle: Town Market Overview
+  defaultLastHours: 24
+  maxRows: 200
+  autoRefreshSeconds: 30
+  sortBy: units
+minimapUpdateFreqTicks: 20
+bottomLeftX: -50000
+bottomLeftZ: -50000
+topRightX: 50000
+topRightZ: 50000
+usePacketNametags: true
+nametagUpdatePeriod: 100
+useUnlimitedNametags: false
+nametagUpdateInterval: 2
+nametagProximityDistance: 176.0
+tabList:
+  enabled: true
+  updateIntervals:
+    staff: 100
+    town: 40
+    allies: 40
+    enemies: 20
+    headerFooter: 20
+  columnHeaders:
+    staff: <gradient:#FFAA50:#FFD080><bold>STAFF</bold></gradient>
+    town: <gradient:#7DD4FF:#A0E0FF><bold>TOWN</bold></gradient>
+    allies: <gradient:#77DD77:#A0EEA0><bold>ALLIES</bold></gradient>
+    enemies: <gradient:#FF7070:#FFA0A0><bold>ENEMIES</bold></gradient>
+  header:
+  - '&6&lNODES'
+  - '&7{town}'
+  footer:
+  - '&7Online: &f%online%'
+  headerImageChar: ''
+  staffPermissions:
+    admin:
+      permission: nodes.staff.admin
+      prefix: '<#FFCC50>✦ '
+      color: <#FFDD80>
+    mod:
+      permission: nodes.staff.mod
+      prefix: '<#50C8FF>✦ '
+      color: <#70D8FF>
+    helper:
+      permission: nodes.staff.helper
+      prefix: '<#D4A0FF>✦ '
+      color: <#E0B0FF>
+  showTownBeforeNation: true
+  maxPlayersPerSection: 8
+  showPlayerPing: false
+nationJoinCooldown: 2d
+townRenameCooldown: 10s
+townCooldownUpdateTick: 1200
+explodeChests: true
+chunkAttackTimeSphere: 900
+displayEntityBeacon: false
+canSetCapitalDuringWar: true
+canSetCapitalIfEnemies: true
+canClaimDuringWar: true
+canSphereDuringWar: false
+conquestPeriod: 259200000
+plunderPeriod: 259200000
+warmupPeriod: 86400000
+hiddenOreMechanic: true
+cropgrowthMechanic: true
+dynmapdir: plugins/dynmap/web/nodes
+dynmapnodesconfig: plugins/dynmap/web/nodes/config.json
+dynmapworld: plugins/dynmap/web/nodes/world.json
+dynmaptowns: plugins/dynmap/web/nodes/towns.json
+dynmapNameoverrides: plugins/dynmap/web/nodes/nameoverrides.json
+togglePVPMechanic: true
+canToggleTownPVP: true
+pvpToggleCooldown: 259200000
+mobProtection: false
+protectedMobs:
+- COW
+- SHEEP
+protectedMobsIfPVPOff:
+- HORSE
+- SKELETON_HORSE
+- DONKEY
+- MULE
+maxDistanceWarDeclaration: false
+maxDistanceAlliance: false
+maxDiplomaticDistance: 90000
+minimumDistanceForNewTown: false
+minimumDistanceForNewTownVal: 32
+placeholderapiEnabled: true
+localChatDistance: 100.0
+rpChatDistance: 100.0
+chatPrefixSuffixShow: true
+chatPrefixMode: 0
+chatPrefix: ''
+chatJSONFormattingHoverTown: ''
+chatJSONFormattingHoverPlayer: ''
+chatJSONFormattingHoverPrepend: ''
+minimapSidebarTopText: ''
+minimapSidebarBottomText: ''
+enableSidebarTextOnlyOnMaxSize: true
+oldWarSystem: true
+newStyleSurrenderConquer: false
+peaceNonWarTargets: false
+onlyKeepCapital: false
+staticFlagblock: true
+staticFlagblockMaterial: deepslate
+disableClaimingCapital: false
+noFriendlyFire: false
+activateDiscord: false
+relayWar: false
+relayGlobalChat: false
+relayFlagWar: false
+relayThirdParty: false
+relayTownUpkeepDeletions: true
+warChannelName: wars
+globalChatChannelName: chat-relay
+flagWarChannelName: flagwar
+thirdPartyPlaceholderName: colonies
+warMessagePrefix: __**War**__ »
+globalChatMessagePrefix: Global »
+flagWarMessagePrefix: __**FlagWar**__ »
+thirdPartyPlaceholderMessagePrefix: __**Colonies**__ »
+messageTownPlunder: '**%surrendertown%** has been conquered and plundered by **%invader%**'
+messageTownConquer: '**%surrendertown%** has been conquered by **%invader%**'
+messageJoinWar: ':heavy_plus_sign: **%nation%** joined war against **%defender%**!'
+messageEnd: The war between **%nation%** and **%defender%** has ended.
+messageSurrender: '**%surrendertown%** has surrendered to **%invader%**.'
+messageWarDeclare: ':crossed_swords: **%attacker%** declared war against **%defender%**!'
+messageFlagWarAttack: '[War] %player% is liberating %townattacked% at (%x%, %y%, %z%)'
+messageFlagWarAttackLiberate: '[War] %player% is attacking %townattacked% at (%x%,
+  %y%, %z%)'
+messageFlagWarDefend: '[War] Attack at (%x%, %y%, %z%) defeated by %player%'
+messageFlagWarLiberateTerritory: '[War] %attacker% liberated territory (id=%id%) from
+  %occupier%!'
+messageFlagWarCaptureTerritory: '[War] %attacker% captured territory (id=%id%) from
+  %town%!'
+messageFlagWarSucceedLiberate: '[War] %attacker% liberated chunk (%x%, %z%) from %occupier%!'
+messageFlagWarSucceedDefend: '[War] %attacker% defended chunk (%x%, %z%) against %occupier%!'
+messageFlagWarSucceedCapture: '[War] %attacker% captured chunk (%x%, %z%) from %town%!'
+enableCoreMechanics: false
+coreNodeCostIncrease: 16
+enableClaimedMechanics: false
+claimedNodeCostIncrease: 16
+enableSphereMechanics: false
+sphereNodeCostIncrease: 16
+enableWaypoints: false
+antiBlockGlitchAttempts: 5
+enableTaxation: true
+enableResourceTaxation: false
+maxResourceTaxRate: 40
+maxResourceConqueredTaxRate: 60
+maxResourceTributaryTaxRate: 30
+taxDistancePenaltyMinimum: 96
+taxDistancePenaltyRamp: 0.01090476
+upkeepMultiplier: 0
+nationUpkeepMultiplier: 0
+enableEconomy: true
+enableEcoTaxation: false
+maxEcoTaxRate: 30
+maxEcoConqueredTaxRate: 50
+maxEcoTributaryTaxRate: 20
+plotUpkeepBillingPeriod: 14d
+plotUpkeepBillingExpiry: 3d
+townLevyBillingExpiry: 3d
+townDepositOnlyInHome: true
+nationDepositOnlyInHome: true
+plotDepositOnlyInHome: true
+townCreationCost: 0
+territoryClaimCost: 0
+plunderAmount: 25
+maxDaysForInactivity: 30
+selectedWorld: world
+warSickness: false
+playersInChunkMultiplier: true
+warPlayerWhiteList: false
+whitelistDenyCommand: kick %player%
+dailyEventTime: '12:00'
+greenText: true
+maxClaimsPerTown: 0
+hiddenOreSilktouch: false
+allowUnownedAttack: true
+hoursRequiredToJoinWars: 0
+skullsGUIToggle: 1
+disableFlagRespawner: false
+allowAllInteractsInFlaggedChunks: false
+allowBorderSkirmishFromWilderness: true
+enableVassals: true
+enableTributaries: true
+enableRegionLimits: false
+limitPVPByRegion: false
+enableSQL: false
+sql:
+  ip: localhost
+  port: 3306
+  database: nodes
+  username: root
+  password: password
+coreSafety:
+  deleteInsolventTowns: false

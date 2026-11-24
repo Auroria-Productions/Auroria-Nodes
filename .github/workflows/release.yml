@@ -1,0 +1,72 @@
+name: Verify and publish core
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release.yml', 'dist/milzzynodes.jar']
+  workflow_dispatch:
+
+concurrency:
+  group: auroria-nodes-dev-5-11-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      TAG: v1.21-26.3-core-dev.5.11
+      SOURCE_NAME: Auroria-Nodes-dev.5.11-Source.zip
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Rebuild, test and verify the released payload
+        run: |
+          bash build.sh
+          python3 scripts/verify_release.py
+      - name: Package source and build inputs from the exact commit
+        run: |
+          git archive --format=zip --prefix=Auroria-Nodes-dev.5.11/ \
+            --output="$RUNNER_TEMP/$SOURCE_NAME" "$GITHUB_SHA" -- \
+            .github .gitignore README.md LICENSE.md build.sh build-support core reference docs scripts
+          unzip -tq "$RUNNER_TEMP/$SOURCE_NAME"
+      - name: Publish verified JAR and source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          endpoint="repos/$GITHUB_REPOSITORY/releases"
+          if gh release view "$TAG" --json databaseId > "$RUNNER_TEMP/release.json"; then
+            target=$(gh release view "$TAG" --json targetCommitish --jq .targetCommitish)
+            actual=$(gh api "repos/$GITHUB_REPOSITORY/commits/$TAG" --jq .sha 2>/dev/null || true)
+            if [[ "$target" != "$GITHUB_SHA" && "$actual" != "$GITHUB_SHA" ]]; then
+              echo 'This release already targets another commit.' >&2
+              exit 1
+            fi
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --draft \
+              --title 'Auroria Nodes dev.5.11' --notes-file docs/RELEASE.md
+          fi
+          id=$(gh release view "$TAG" --json databaseId --jq .databaseId)
+          draft=$(gh release view "$TAG" --json isDraft --jq .isDraft)
+          for asset in dist/milzzynodes.jar "$RUNNER_TEMP/$SOURCE_NAME"; do
+            name=$(basename "$asset")
+            asset_id=$(gh api "$endpoint/$id/assets" | jq -r --arg name "$name" '.[] | select(.name == $name) | .id')
+            if [[ -z "$asset_id" ]]; then
+              [[ "$draft" == true ]]
+              gh release upload "$TAG" "$asset"
+              asset_id=$(gh api "$endpoint/$id/assets" | jq -r --arg name "$name" '.[] | select(.name == $name) | .id')
+            fi
+            gh api -H 'Accept: application/octet-stream' "$endpoint/assets/$asset_id" > "$RUNNER_TEMP/verify-$name"
+            cmp "$asset" "$RUNNER_TEMP/verify-$name"
+          done
+          if [[ "$draft" == true ]]; then
+            gh release edit "$TAG" --draft=false --latest
+          fi

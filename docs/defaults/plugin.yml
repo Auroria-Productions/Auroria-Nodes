@@ -1,0 +1,609 @@
+main: phonon.nodes.NodesPlugin
+name: milzzynodes
+description: A towny-like plugin with a focus on performance and extensibility, designed
+  for large servers with many players and towns.
+authors:
+- phonon
+contributors:
+- Fond__
+- RobinSGE3361
+- Sakyq
+- dfah
+version: 1.21-26.3-core-dev.5.11-refinery1182-keywarcfg
+conflicts:
+- Towny
+- TownyAdvanced
+- TownyChat
+- TownyNameUpdater
+- TownyFlight
+- TownyFly
+- TownyEssentials
+- TownyMobs
+- TownyNations
+- TownyTowns
+- TownyWar
+api-version: '1.21'
+depend:
+- Vault
+folia-supported: false
+softdepend:
+- kotlin
+- Essentials
+- PlaceholderAPI
+- TAB
+- LuckPerms
+- SuperVanish
+- PremiumVanish
+- ports
+- DiscordSRV
+- JMWaypointManager
+- UnlimitedNametags
+- Votifier
+commands:
+  keywar:
+    description: Staff-supervised one-life key-point wars
+    aliases: [kpwar, keypointwar]
+    permission: nodes.command.keywar
+    usage: /keywar help
+  nodesadmin:
+    description: Admin commands for Nodes
+    aliases:
+    - nda
+    permission: nodes.helper
+    usage: /nodesadmin help or /nda help
+  minebuff:
+    description: Admin commands for Nodes
+    permission: nodes.admin
+  minebufftown:
+    description: Town-specific minebuff command
+    permission: nodes.admin
+  town:
+    description: Manage player towns (Nodes)
+    aliases:
+    - t
+    permission: nodes.command.town
+    usage: /town help or /t help
+  vassal:
+    description: Vassal independence command
+    permission: nodes.command.nation
+    usage: /vassal revolt
+    aliases:
+    - vassals
+  nation:
+    description: Manage player nations (Nodes)
+    aliases:
+    - n
+    permission: nodes.command.nation
+    usage: /nation help or /n help
+  nodes:
+    description: Nodes general info (Nodes)
+    aliases:
+    - nd
+    permission: nodes.command.nodes
+    usage: /nodes help or /nd help
+  noptions:
+    description: Manage minimap and chat preferences
+    aliases: []
+    permission: nodes.command.options
+    usage: /noptions
+  ally:
+    description: Make alliance with another town/nation
+    aliases: []
+    permission: nodes.command.ally
+    usage: /ally help
+  unally:
+    description: Break alliance with another town/nation
+    aliases: []
+    permission: nodes.command.unally
+    usage: /unally help
+  war:
+    description: Declare war on another town/nation
+    aliases: []
+    permission: nodes.command.war
+    usage: /war help
+  warzone:
+    description: Manage warzones (Nodes)
+    permission: nodes.command.warzone
+    usage: /warzone [name]
+  captime:
+    description: Show cap time for a node id
+    aliases: []
+    permission: nodes.command.captime
+    usage: /captime [nodeId]
+  peace:
+    description: Request peace with another town/nation
+    aliases: []
+    permission: nodes.command.peace
+    usage: /peace help
+  truce:
+    description: View truce list and times remaining
+    aliases: []
+    permission: nodes.command.truce
+    usage: /peace help
+  globalchat:
+    description: Set player chat to global
+    aliases:
+    - gc
+    permission: nodes.command.chat.global
+    usage: /globalchat or /gc
+  townchat:
+    description: Set player chat to town
+    aliases:
+    - tc
+    permission: nodes.command.chat.town
+    usage: /townchat or /tc
+  nationchat:
+    description: Set player chat to nation
+    aliases:
+    - nc
+    permission: nodes.command.chat.nation
+    usage: /nationchat or /nc
+  allychat:
+    description: Set player chat to allies
+    aliases:
+    - ac
+    permission: nodes.command.chat.ally
+    usage: /allychat or /ac
+  localchat:
+    description: Talk to players within 100 blocks
+    aliases:
+    - lc
+    permission: nodes.command.chat.local
+    usage: /localchat or /lc
+  player:
+    description: View player info
+    aliases:
+    - p
+    permission: nodes.command.player
+    usage: /player [name] or /p [name]
+  territory:
+    description: View territory info
+    aliases: []
+    permission: nodes.command.territory
+    usage: /territory or /territory [id]
+  port:
+    description: Port warps
+    aliases: []
+    permission: nodes.command.port
+    usage: /port help
+  report:
+    description: Report an issue to staff
+    aliases: []
+    permission: nodes.command.report
+    usage: /report <message>
+  language:
+    description: Set personal language
+    aliases:
+    - lang
+    permission: nodes.command.language
+    usage: /language en|de|el|tr
+  nekdr:
+    description: Show kill/death statistics
+    aliases:
+    - kdr
+    permission: nodes.command.nekdr
+    usage: /nekdr [name|top]
+  neadmin:
+    description: Reload imported extensions
+    aliases: []
+    permission: nodesextensions.admin
+    usage: /neadmin reload
+  neincome:
+    description: Show detailed town income info
+    aliases: []
+    permission: nodes.command.town
+    usage: /neincome info
+  nemarket:
+    description: Town market command
+    aliases: []
+    permission: nodes.command.town
+    usage: /nemarket help
+  miningtower:
+    description: Mining tower management
+    aliases: []
+    permission: nodesextensions.miningtower.submit
+    usage: /miningtower
+  miningtowerdebug:
+    description: Mining tower debug command
+    aliases: []
+    permission: nodesextensions.miningtower.rate
+    usage: /miningtowerdebug
+  netowncontrol:
+    description: Toggle town command availability
+    aliases: []
+    permission: nodesextensions.admin
+    usage: /netowncontrol <status|leave|spawn> [enable|disable]
+  calendar:
+    description: Server calendar with the daily events
+    permission: nodes.command.calendar
+    usage: /calendar [today|upcoming]
+  rpchat:
+    description: Set player chat to roleplay (nearby players only)
+    aliases:
+    - rp
+    permission: nodes.command.chat.rp
+    usage: /rpchat or /rp
+  duel:
+    description: Challenge a player to a duel
+    permission: nodes.command.duel
+    usage: /duel <player> [kit|own] [wager], /duel accept|deny|spectate|leave|top|stats
+  skills:
+    description: Your mining, farming, woodcutting and hunting levels
+    permission: nodes.command.skills
+    usage: /skills or /skills top <skill>
+  map:
+    description: Places you have discovered
+    permission: nodes.command.map
+    usage: /map or /map title <name|none>
+  captimes:
+    description: Time to capture a chunk of a node
+    permission: nodes.command.captimes
+    usage: /captimes or /captimes [node id]
+  refinery:
+    description: Manage and use refineries
+    aliases:
+    - rf
+    - refineries
+    permission: nodes.command.refinery
+    usage: /refinery help
+  stats:
+    description: View kill/death stats
+    aliases:
+    - kdr
+    usage: /stats [player]
+  leaderboard:
+    description: KDR leaderboards
+    aliases:
+    - lb
+    usage: /leaderboard <kills|deaths|kdr|towns|nations|war>
+  plot:
+    description: Town plots
+    aliases:
+    - p
+    usage: /plot help
+    permission: nodes.command.plot
+    permission-message: You do not have permission to use plot commands.
+  killshop:
+    description: Kill event shop
+    usage: /killshop
+    permission: nodes.command.killshop
+    permission-message: You do not have permission to use killshop.
+  surrender:
+    description: Join another nation with your town
+    permission: nodes.command.surrender
+    usage: /surrender <nation>
+  bounty:
+    description: Ore bounties on players
+    aliases:
+    - bounties
+    permission: nodes.command.bounty
+    usage: /bounty help
+  economy:
+    description: National economy and banking
+    aliases:
+    - ne
+    permission: nodes.command.economy
+    usage: /economy help
+  economyadmin:
+    description: Economy administration
+    aliases:
+    - nea
+    permission: nodes.economy.admin
+    usage: /economyadmin help
+  supplydrop:
+    description: Supply drops
+    aliases:
+    - sd
+    permission: nodes.command.supplydrop
+    usage: /supplydrop help
+  raid:
+    description: Territory raids
+    usage: /raid <town> <territoryId> | status | cancel
+    permission: nodes.command.raid
+  resourcetower:
+    description: Place and manage mining towers
+    aliases:
+    - mt
+    permission: nodes.command.miningtower
+    usage: /resourcetower help
+permissions:
+  nodes.command.keywar:
+    description: Use /keywar
+    default: true
+  nodes.keywar.staff:
+    description: Manage battle setup, roster, start and outcomes
+    default: op
+  nodes.staff:
+    default: op
+    children:
+      nodes.admin: true
+      nodes.mod: true
+      nodes.helper: true
+  nodes.helper:
+    default: op
+  nodes.mod:
+    default: op
+    children:
+      nodes.helper: true
+  nodes.admin:
+    default: op
+    children:
+      nodes.mod: true
+      nodes.helper: true
+  nodesextensions.admin:
+    default: op
+  nodesextensions.miningtower.submit:
+    default: op
+  nodesextensions.miningtower.rate:
+    default: op
+  nodes.command.options:
+    default: true
+  nodes.command.language:
+    default: true
+  nodes.command.warzone:
+    default: true
+  nodes.command.captime:
+    default: true
+  nodes.command.port:
+    default: true
+  nodes.command.nekdr:
+    default: true
+  nodes.command.town.fly:
+    default: op
+  nodes.command.town.create:
+    description: Allows a player to create a new town with /town create
+    default: true
+  nodes.command.nation.create:
+    default: op
+  nodes.leaderlaunch.bypass:
+    default: op
+  nodes.command.town.claim:
+    description: Allows town leaders/officers to claim territory with /town claim
+    default: true
+  nodes.command.chat.local:
+    default: true
+  nodes.command.town:
+    default: true
+  nodes.command.nation:
+    default: true
+  nodes.command.nodes:
+    default: true
+  nodes.command.ally:
+    default: true
+  nodes.command.unally:
+    default: true
+  nodes.command.war:
+    default: true
+  nodes.command.peace:
+    default: true
+  nodes.command.truce:
+    default: true
+  nodes.command.chat.global:
+    default: true
+  nodes.command.chat.town:
+    default: true
+  nodes.command.chat.nation:
+    default: true
+  nodes.command.chat.ally:
+    default: true
+  nodes.command.duel:
+    default: true
+  nodes.duel.bypass:
+    description: Use any command during a duel
+    default: false
+  nodes.command.skills:
+    default: true
+  nodes.command.map:
+    default: true
+  nodes.command.captimes:
+    default: true
+  nodes.command.calendar:
+    default: true
+  nodes.command.chat.rp:
+    default: true
+  nodes.command.player:
+    default: true
+  nodes.command.territory:
+    default: true
+  nodes.warzone.status:
+    description: View warzone status/scores
+    default: true
+  nodes.warzone.admin:
+    description: Create/enable/disable/remove warzones
+    default: op
+  nodes.stats.self:
+    description: View own stats
+    default: true
+  nodes.stats.other:
+    description: View other players stats
+    default: true
+  nodes.admin.reload:
+    description: /nodesadmin reload (grant nodes.admin.reload.<action> for a single
+      action)
+    default: false
+  nodes.admin.war:
+    description: /nodesadmin war (grant nodes.admin.war.<action> for a single action)
+    default: false
+  nodes.admin.surrender:
+    description: /nodesadmin surrender (grant nodes.admin.surrender.<action> for a
+      single action)
+    default: false
+  nodes.admin.port:
+    description: /nodesadmin port (grant nodes.admin.port.<action> for a single action)
+    default: false
+  nodes.admin.resident:
+    description: /nodesadmin resident (grant nodes.admin.resident.<action> for a single
+      action)
+    default: false
+  nodes.admin.town:
+    description: /nodesadmin town (grant nodes.admin.town.<action> for a single action)
+    default: false
+  nodes.admin.nation:
+    description: /nodesadmin nation (grant nodes.admin.nation.<action> for a single
+      action)
+    default: false
+  nodes.admin.enemy:
+    description: /nodesadmin enemy (grant nodes.admin.enemy.<action> for a single
+      action)
+    default: false
+  nodes.admin.peace:
+    description: /nodesadmin peace (grant nodes.admin.peace.<action> for a single
+      action)
+    default: false
+  nodes.admin.ally:
+    description: /nodesadmin ally (grant nodes.admin.ally.<action> for a single action)
+    default: false
+  nodes.admin.allyremove:
+    description: /nodesadmin allyremove (grant nodes.admin.allyremove.<action> for
+      a single action)
+    default: false
+  nodes.admin.truce:
+    description: /nodesadmin truce (grant nodes.admin.truce.<action> for a single
+      action)
+    default: false
+  nodes.admin.truceremove:
+    description: /nodesadmin truceremove (grant nodes.admin.truceremove.<action> for
+      a single action)
+    default: false
+  nodes.admin.treaty:
+    description: /nodesadmin treaty (grant nodes.admin.treaty.<action> for a single
+      action)
+    default: false
+  nodes.admin.save:
+    description: /nodesadmin save (grant nodes.admin.save.<action> for a single action)
+    default: false
+  nodes.admin.load:
+    description: /nodesadmin load (grant nodes.admin.load.<action> for a single action)
+    default: false
+  nodes.admin.runincome:
+    description: /nodesadmin runincome (grant nodes.admin.runincome.<action> for a
+      single action)
+    default: false
+  nodes.admin.playersonline:
+    description: /nodesadmin playersonline (grant nodes.admin.playersonline.<action>
+      for a single action)
+    default: false
+  nodes.admin.debug:
+    description: /nodesadmin debug (grant nodes.admin.debug.<action> for a single
+      action)
+    default: false
+  nodes.admin.miningboost:
+    description: /nodesadmin miningboost (grant nodes.admin.miningboost.<action> for
+      a single action)
+    default: false
+  nodes.admin.stats:
+    description: /nodesadmin stats (grant nodes.admin.stats.<action> for a single
+      action)
+    default: false
+  nodes.admin.socialspy:
+    description: /nodesadmin socialspy (grant nodes.admin.socialspy.<action> for a
+      single action)
+    default: false
+  nodes.admin.pvp:
+    description: /nodesadmin pvp (grant nodes.admin.pvp.<action> for a single action)
+    default: false
+  nodes.admin.inactive:
+    description: /nodesadmin inactive (grant nodes.admin.inactive.<action> for a single
+      action)
+    default: false
+  nodes.admin.rallycap:
+    description: /nodesadmin rallycap (grant nodes.admin.rallycap.<action> for a single
+      action)
+    default: false
+  nodes.admin.announce:
+    description: /nodesadmin announce (grant nodes.admin.announce.<action> for a single
+      action)
+    default: false
+  nodes.admin.plot:
+    description: /nodesadmin plot (grant nodes.admin.plot.<action> for a single action)
+    default: false
+  nodes.admin.calendar:
+    description: /nodesadmin calendar (grant nodes.admin.calendar.<add|edit|remove|list|show|announce|announcements|unannounce>
+      for single actions)
+    default: false
+  nodes.admin.poi:
+    description: /nodesadmin poi (grant nodes.admin.poi.<add|list|show|remove|tp|move|name|type|desc|radius|reward|reset>
+      for single actions)
+    default: false
+  nodes.admin.duel:
+    description: /nodesadmin duel (grant nodes.admin.duel.<arena|kit|end|resetstats>
+      for single actions)
+    default: false
+  nodes.admin.skills:
+    description: /nodesadmin skills (grant nodes.admin.skills.<show|set|addxp|reset>
+      for single actions)
+    default: false
+  nodes.stats.admin:
+    description: Reset stats
+    default: op
+  nodes.command.plot:
+    description: Use /plot base commands
+    default: true
+  nodes.command.plot.create:
+    description: Create plots
+    default: true
+  nodes.command.plot.delete:
+    description: Delete plots
+    default: true
+  nodes.command.plot.owner:
+    description: Transfer plot ownership
+    default: true
+  nodes.command.plot.permissions:
+    description: Edit plot permission rules
+    default: true
+  nodes.command.killshop:
+    description: Open killshop / view points
+    default: true
+  nodes.killshop.admin:
+    description: Manage killshop
+    default: op
+  nodes.command.raid:
+    description: Start/status/cancel raids
+    default: true
+  nodes.command.miningtower:
+    description: Use /mt help and /mt list
+    default: true
+  nodes.miningtower.admin:
+    description: Create and remove mining towers
+    default: op
+  nodes.command.refinery:
+    description: Use /refinery help, list and info
+    default: true
+  nodes.refinery.admin:
+    description: Create, edit, remove and break refineries
+    default: op
+  nodes.command.supplydrop:
+    description: Use /supplydrop help and status
+    default: true
+  nodes.supplydrop.admin:
+    description: Manage supply drop points, loot and drops
+    default: op
+  nodes.command.vassal:
+    description: Use /vassal
+    default: true
+  nodes.command.surrender:
+    description: Use /surrender
+    default: true
+  nodes.vassal.admin:
+    description: Release any vassal
+    default: op
+  nodes.command.bounty:
+    description: Use /bounty
+    default: true
+  nodes.bounty.add:
+    description: Fund bounties
+    default: true
+  nodes.bounty.hunt:
+    description: Claim bounty rewards by killing the target
+    default: true
+  nodes.bounty.admin:
+    description: Refund bounties and manage queued bounty deliveries
+    default: op
+  nodes.command.economy:
+    description: Use /economy
+    default: true
+  nodes.economy.admin:
+    description: Issue currency and resources, approve loans, register infrastructure
+    default: op
+provides:
+- nodes

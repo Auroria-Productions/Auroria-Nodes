@@ -1,0 +1,1306 @@
+# Nodes configuration
+# Categories are comment headings. Settings keep their existing key paths.
+# 1 second = 20 server ticks. 1 minute = 60000 ms. 1 hour = 3600000 ms.
+
+# ==========================================
+# Engine settings
+# ==========================================
+# savePeriod and mainPeriodicTick are in server ticks. backupPeriod is in milliseconds.
+
+# --- Configuration schema and world selection ---
+configVersion: 7
+selectedWorld: world
+disableWorldWhenLoadFails: true
+
+# --- Saving, backups and scheduled tasks ---
+savePeriod: 600
+backupPeriod: 3600000
+mainPeriodicTick: 1200
+
+# ==========================================
+# Map bounds and minimap
+# ==========================================
+
+# --- Minimap refresh ---
+minimapUpdateFreqTicks: 20
+
+# --- Map coordinate bounds ---
+bottomLeftX: -50000
+bottomLeftZ: -50000
+topRightX: 50000
+topRightZ: 50000
+
+# --- Minimap size ---
+minimap:
+  defaultSize: 5
+  minSize: 3
+  maxSize: 6
+
+  # --- Size by online player count ---
+  onlineScaling:
+    enabled: true
+    rules:
+      - minPlayers: 200
+        minSize: 3
+        maxSize: 6
+      - minPlayers: 300
+        minSize: 3
+        maxSize: 5
+      - minPlayers: 500
+        minSize: 3
+        maxSize: 4
+
+# --- Sidebar text ---
+minimapSidebarTopText: ''
+minimapSidebarBottomText: ''
+enableSidebarTextOnlyOnMaxSize: true
+
+# ==========================================
+# Nametags
+# ==========================================
+
+# --- Nametag providers ---
+usePacketNametags: true
+useUnlimitedNametags: false
+
+# --- Refresh intervals and batch size ---
+nametagUpdatePeriod: 100
+nametagUpdateInterval: 2
+nametagUpdatesPerTick: 20
+
+# --- Distance-based visibility ---
+nametagProximityEnabled: false
+nametagProximityRadius: 176.0
+nametagProximityRefreshTicks: 100
+nametagProximityDistance: 176.0
+
+# ==========================================
+# Tab list
+# ==========================================
+
+# --- Tab list switches and refresh ---
+tabEnabled: true
+tabRefreshTicks: 40
+
+# --- Staff detection ---
+tabStaffWeightThreshold: 60
+tabStaffWeightPlaceholder: '%luckperms_meta_weight%'
+tabStaffFallbackPermission: nodes.staff
+
+# --- Column sizes and spacing ---
+tabColumnWidth: 24
+tabMaxEntriesPerColumn: 8
+tabFooterRows: 18
+tabFallbackSpacerRows: 8
+
+# --- Tab list layout and formatting ---
+tabList:
+  enabled: true
+
+  # --- Refresh intervals by section ---
+  updateIntervals:
+    staff: 100
+    town: 40
+    allies: 40
+    enemies: 20
+    headerFooter: 20
+
+  # --- Column headings and colours ---
+  columnHeaders:
+    staff: <gradient:#FFAA50:#FFD080><bold>STAFF</bold></gradient>
+    town: <gradient:#7DD4FF:#A0E0FF><bold>TOWN</bold></gradient>
+    allies: <gradient:#77DD77:#A0EEA0><bold>ALLIES</bold></gradient>
+    enemies: <gradient:#FF7070:#FFA0A0><bold>ENEMIES</bold></gradient>
+
+  # --- Header, footer and image ---
+  header:
+    - '&6&lNODES'
+    - '&7{town}'
+  footer:
+    - '&7Online: &f%online%'
+  headerImageChar: ''
+
+  # --- Staff groups and icons ---
+  staffPermissions:
+    admin:
+      permission: nodes.staff.admin
+      prefix: '<#FFCC50>✦ '
+      color: <#FFDD80>
+    mod:
+      permission: nodes.staff.mod
+      prefix: '<#50C8FF>✦ '
+      color: <#70D8FF>
+    helper:
+      permission: nodes.staff.helper
+      prefix: '<#D4A0FF>✦ '
+      color: <#E0B0FF>
+
+  # --- Player entries and ping ---
+  showTownBeforeNation: true
+  maxPlayersPerSection: 8
+  showPlayerPing: false
+
+# --- Tab list pipeline and player tags ---
+tablist:
+  enabled: true
+  pipeline-ticks: 10
+  update-interval-ticks: 100
+  refresh-on-join: true
+  refresh-others-on-join: true
+  join-refresh-delay-ticks: 2
+
+  # --- Team and town tag text ---
+  team-prefix: tp
+  show-town-tag: true
+  tag-open: '['
+  tag-close: '] '
+
+  # --- LuckPerms tags ---
+  luckperms:
+    enabled: true
+    show-suffix: false
+    separator: ''
+
+  # --- Header and footer ---
+  header:
+    enabled: true
+    lines:
+      - '&6&lNODES'
+      - '&7{town}'
+    townless-text: '&7[Wild]'
+  footer:
+    enabled: true
+    lines:
+      - '&7Online: &f{online}'
+
+  # --- Player groups ---
+  groups:
+    staff:
+      enabled: true
+      min-weight: 50
+      header: '&6&lStaff '
+    town:
+      enabled: true
+      header: '&a&lTown / Nation '
+    ally:
+      enabled: true
+      header: '&e&lAllies '
+    enemy:
+      enabled: true
+      header: '&c&lEnemies '
+    neutral:
+      enabled: true
+      header: '&7&lEveryone else '
+
+  # --- Wilderness and diplomacy colours ---
+  townless:
+    tag-color: GRAY
+    tag-text: Wild
+    bold: false
+  relations:
+    self:
+      tag-color: GREEN
+      bold: false
+    nation:
+      tag-color: AQUA
+      bold: false
+    ally:
+      tag-color: YELLOW
+      bold: false
+    enemy:
+      tag-color: RED
+      bold: false
+    neutral:
+      tag-color: WHITE
+      bold: false
+
+# ==========================================
+# AFK and activity
+# ==========================================
+
+# --- Idle timeout and inactivity threshold ---
+afkKickTime: 900000
+maxDaysForInactivity: 30
+
+# --- Playtime requirement for war ---
+hoursRequiredToJoinWars: 0
+
+# --- Daily event schedule ---
+dailyEventTime: '12:00'
+
+# ==========================================
+# General permissions and world protection
+# ==========================================
+
+# --- Wilderness and unclaimed territory ---
+canInteractInEmpty: false
+canInteractInUnclaimed: true
+requireSheepNodeToShear: true
+
+# --- Block glitch detection and penalties ---
+punishBlockGlitching: true
+punishBlockGlitchingDurationTicks: 60
+punishBlockGlitchingPoisonAmplifier: 1
+punishBlockGlitchingBlindnessAmplifier: 255
+punishBlockGlitchingDarknessAmplifier: 255
+punishBlockGlitchingAttempts: 5
+punishBlockGlitchingWindowTicks: 60
+antiBlockGlitchAttempts: 5
+
+# --- Redstone and region restrictions ---
+disableRedstoneTicking: false
+enableRegionLimits: false
+limitPVPByRegion: false
+
+# ==========================================
+# Town settings
+# ==========================================
+# townSpawnTime is in seconds. Duration formats depend on the individual key.
+
+# --- Creation, relocation and rename cooldowns ---
+townCreateCooldown: 172800000
+townMoveHomeCooldown: 86400000
+townRenameCooldown: 10s
+townCooldownUpdateTick: 1200
+
+# --- Town spawn and rejoining ---
+townSpawnTime: 10
+townRejoinCooldownEnabled: false
+townRejoinCooldown: 86400000
+
+# --- Town points and shop ---
+townPointsPerPlayerPerMinute: 1
+townShopFile: town_shop.yml
+
+# --- Town creation cost and spacing ---
+townCreateCostEnabled: false
+townCreateCostFlatFee: 500.0
+townCreationCost: 0
+minimumDistanceForNewTown: false
+minimumDistanceForNewTownVal: 32
+
+# --- Waypoints and GUI ---
+enableWaypoints: false
+skullsGUIToggle: 1
+
+# --- Leader launch limits ---
+leaderlaunch:
+  defaultSlots: 10
+  maxSlots: 30
+
+# --- Town member actions ---
+town-control:
+  leave-enabled: true
+  spawn-enabled: true
+  capital-enabled: false
+  disband-enabled: false
+
+# ==========================================
+# Nation settings and diplomacy
+# ==========================================
+
+# --- Nation travel and membership ---
+allowNationTownSpawn: false
+nationTownTeleportCost:
+  diamond: 1
+  gold: 6
+nationJoinCooldown: 2d
+
+# --- Diplomatic distance controls ---
+maxDistanceWarDeclaration: false
+maxDistanceAlliance: false
+maxDiplomaticDistance: 90000
+
+# --- Alliance and war proximity ---
+allyProximity: false
+allyProximityDistance: 1500
+warProximity: false
+warProximityDistance: 1500.0
+
+# ==========================================
+# Vassalage & Tributaries
+# ==========================================
+# Both types use /nation vassal|tributary offer|accept|decline|release|break.
+# Vassals follow their overlord's wars; tributaries remain autonomous.
+# Taxes shown in offers are percentages (20 = 20 percent).
+# --- Vassalage and tributary switches ---
+enableVassals: true
+enableTributaries: true
+# Maximum negotiable rates for tributary agreements (percent).
+# --- Tributary tax limits ---
+maxResourceTributaryTaxRate: 30
+maxEcoTributaryTaxRate: 20
+
+# Vassal-specific settings. tributeRate 0.2 means 20% by default
+# for new vassal agreements; explicit offered rates override it.
+# Existing agreements retain the negotiated rates already saved.
+# --- Vassal terms and income ---
+vassals:
+  enabled: true
+  # fraction of vassal income paid to the overlord by default
+  tributeRate: 0.2
+  # earliest a new vassal may use /vassal revolt or /nation vassal break
+  revoltCooldownHours: 72
+  # pending offer expiry; applies to vassal and tributary offers
+  offerTimeoutSeconds: 120
+
+# ==========================================
+# Fortified nodes
+# ==========================================
+# /t fortify upgrades the territory you're in. Costs and upkeep
+# come from the town's fortification treasury. Members deposit
+# configured materials using /t fortify deposit [amount].
+# Upkeep runs every incomePeriod; if it cannot be paid, the level
+# drops by one. Enemy flag capture time is multiplied by the value.
+# Configured materials can be customised; levels can be added/removed.
+# --- Fortification material and level rules ---
+fortify:
+  enabled: true
+
+  # --- Costs and upkeep by level ---
+  levels:
+    1:
+      captureTimeMultiplier: 1.25
+      cost:
+        IRON_BLOCK: 8
+      upkeep:
+        IRON_INGOT: 4
+    2:
+      captureTimeMultiplier: 1.5
+      cost:
+        GOLD_BLOCK: 8
+      upkeep:
+        GOLD_INGOT: 4
+    3:
+      captureTimeMultiplier: 2.0
+      cost:
+        DIAMOND_BLOCK: 4
+      upkeep:
+        DIAMOND: 2
+
+# ==========================================
+# Town claims and territory costs
+# ==========================================
+
+# --- Claim costs and claim power ---
+territoryCostBase: 10
+territoryCostScale: 0.25
+claimsPowerEnabled: true
+territoryCostEnabled: true
+
+# --- Starting and maximum town claim power ---
+townInitialClaims: 25
+initialOverClaimsAmountScale: 2
+townClaimsBase: 20
+townClaimsMax: -1
+
+# --- Claim power earned by residents ---
+playerClaimsInitial: 1
+playerClaimsMax: 25
+playerClaimsIncrease: 2
+townPenaltyDecay: 2
+townClaimsPenaltyDecayPeriod: 3600000
+playerClaimsIncreasePeriod: 3600000
+
+# --- Overclaim penalties and reminders ---
+overClaimsPenalty: true
+overClaimsMaxPenalty: 0.5
+overClaimsAllowClaim: false
+overMaxClaimsReminderPeriod: 24000
+
+# --- Claim cooldown and rate limits ---
+townClaimCooldownEnabled: false
+townClaimCooldownPeriod: 86400000
+townClaimCooldownMaxClaims: 3
+townClaimPlayerRatioEnabled: false
+townClaimPlayerRatioPerPlayer: 1
+
+# --- Town claim cap and fee ---
+maxClaimsPerTown: 0
+territoryClaimCost: 0
+
+# ==========================================
+# Node types and special territory rules
+# ==========================================
+
+# --- Node definitions file ---
+nodeTypeFile: nodeType.yml
+
+# --- Core, claimed and sphere nodes ---
+enableCoreMechanics: false
+coreNodeCostIncrease: 16
+enableClaimedMechanics: false
+claimedNodeCostIncrease: 16
+enableSphereMechanics: false
+sphereNodeCostIncrease: 16
+
+# ==========================================
+# Resource income, ores, crops and breeding
+# ==========================================
+# incomePeriod is in milliseconds.
+
+# --- Income interval and claim-power scaling ---
+incomeEnabled: true
+incomePeriod: 3600000
+incomeScaleByClaimPower: true
+incomeScaleMin: 0.1
+incomeScaleMax: 1.0
+
+# --- Global and territory resource values ---
+globalResources:
+  income:
+    gold_ingot: 0 # Present for reference compatibility; preserves original disabled global income.
+  ore:
+    coal:
+      - 0.03
+      - 1
+      - 3
+    iron_ore:
+      - 0.015
+      - 1
+      - 2
+    gold_ore:
+      - 0.015
+      - 1
+      - 1
+    diamond_ore: 0.007
+    prismarine_shard:
+      chance: 0.0
+      min: 0
+      max: 0
+      lore:
+        - §aAncient fossil
+        - §2Mined deep from the earth
+      customname: §bAncient Fossils
+  crops:
+    wheat: 0.25
+    potato: 0.25
+  animals: null
+useTerritoryResourceValues: true
+
+# --- Hidden ores and harvesting rules ---
+hiddenOreMechanic: true
+hiddenOreSilktouch: false
+cropgrowthMechanic: true
+
+# --- Resource access by territory ownership ---
+allowOreInWilderness: false
+allowCropsInWilderness: false
+allowBreedingInWilderness: false
+allowOreInCaptured: true
+allowOreInNationTowns: true
+
+# --- Light and height requirements ---
+cropsMinSkyLight: 14
+breedingMinSkyLight: 14
+cropsMinYHeight: 16
+cropsMaxYHeight: 255
+breedingMinYHeight: 16
+breedingMaxYHeight: 255
+
+# ==========================================
+# Taxes and tribute
+# ==========================================
+
+# --- Occupation tax rates ---
+taxIncomeRate: 0.2
+taxMineRate: 0.2
+taxFarmRate: 0.2
+taxAnimalRate: 0.2
+
+# --- Town taxation and distance effects ---
+enableTaxation: true
+enableResourceTaxation: false
+maxResourceTaxRate: 40
+maxResourceConqueredTaxRate: 60
+taxDistancePenaltyMinimum: 96
+taxDistancePenaltyRamp: 0.01090476
+
+# --- Money tax limits ---
+enableEcoTaxation: false
+maxEcoTaxRate: 30
+maxEcoConqueredTaxRate: 50
+
+# ==========================================
+# Economy, deposits and upkeep
+# ==========================================
+
+# --- Core economy and deposit locations ---
+enableEconomy: true
+townDepositOnlyInHome: true
+nationDepositOnlyInHome: true
+plotDepositOnlyInHome: true
+
+# --- Town, nation and plot upkeep ---
+upkeepMultiplier: 0
+nationUpkeepMultiplier: 0
+plotUpkeepBillingPeriod: 14d
+plotUpkeepBillingExpiry: 3d
+townLevyBillingExpiry: 3d
+
+# --- Town and economy safeguards ---
+coreSafety:
+  deleteInsolventTowns: false
+
+# ==========================================
+# Integrated economy
+# ==========================================
+
+# --- Integrated economy switch and tradable resources ---
+economy:
+  enabled: true
+  resources:
+    - COAL
+    - IRON_INGOT
+    - COPPER_INGOT
+    - GOLD_INGOT
+    - DIAMOND
+    - EMERALD
+    - REDSTONE
+    - LAPIS_LAZULI
+
+  # --- Loan limits, terms and interest ---
+  loans:
+    maximum: '10000'
+    periodHours: 24
+    termPeriods: 30
+    interestBasisPoints: 100
+
+  # --- Infrastructure upkeep by type ---
+  infrastructure:
+    railway: '5.00'
+    port: '20.00'
+    road: '1.00'
+    power: '10.00'
+
+  # --- Transfer fees and daily taxes ---
+  fees:
+    transferPercent: 0
+    marketPercent: 0
+  tax:
+    townPercentPerDay: 0
+
+  # --- Server buyback and vote rewards ---
+  sell:
+    dailyLimit: '0'
+    prices:
+      COAL: '0.50'
+      IRON_INGOT: '2.00'
+      COPPER_INGOT: '1.00'
+      GOLD_INGOT: '4.00'
+      DIAMOND: '20.00'
+      EMERALD: '15.00'
+      REDSTONE: '0.25'
+      LAPIS_LAZULI: '0.50'
+  vote:
+    reward: '0'
+
+  # --- Player market and server shop ---
+  market:
+    enabled: true
+    maxListingsPerPlayer: 10
+    maxPrice: '1000000'
+  shop:
+    prices:
+      COAL: '1.00'
+      IRON_INGOT: '4.00'
+      COPPER_INGOT: '2.00'
+      GOLD_INGOT: '8.00'
+      DIAMOND: '40.00'
+      EMERALD: '30.00'
+      REDSTONE: '0.50'
+      LAPIS_LAZULI: '1.00'
+      BREAD: '2.00'
+      COOKED_BEEF: '3.00'
+
+  # --- Dynamic exchange prices and stock ---
+  exchange:
+    enabled: true
+    restockMinutes: 30
+    restockPercent: 20
+    sensitivity: 0.5
+    minMultiplier: 0.25
+    maxMultiplier: 4.0
+    spreadPercent: 20
+    capMultiplier: 4
+
+    # --- Exchange items, prices and target stock ---
+    items:
+      COAL:
+        price: '0.75'
+        target: 4000
+      IRON_INGOT:
+        price: '3.00'
+        target: 2000
+      COPPER_INGOT:
+        price: '1.50'
+        target: 3000
+      GOLD_INGOT:
+        price: '6.00'
+        target: 1000
+      DIAMOND:
+        price: '30.00'
+        target: 300
+      EMERALD:
+        price: '22.00'
+        target: 300
+      REDSTONE:
+        price: '0.40'
+        target: 4000
+      LAPIS_LAZULI:
+        price: '0.75'
+        target: 3000
+      BREAD:
+        price: '2.50'
+        target: 1000
+      COOKED_BEEF:
+        price: '3.50'
+        target: 1000
+
+  # --- Town creation and claim charges ---
+  costs:
+    townCreation: '0'
+    territoryClaimPerPower: '0'
+
+  # --- Daily town and nation upkeep ---
+  upkeep:
+    townPerClaimPerDay: '0'
+    nationPerTownPerDay: '0'
+
+  # --- Treasury plunder on capture ---
+  plunder:
+    perClaimPower: '0'
+    maxPercentOfTreasury: 50
+
+  # --- Port economy settings ---
+  ports:
+    maxFee: '1000'
+
+# ==========================================
+# War rules and rally caps
+# ==========================================
+
+# --- War mode and wartime permissions ---
+oldWarSystem: true
+warPermissions: true
+canLeaveTownDuringWar: true
+canCreateTownDuringWar: false
+canDestroyTownDuringWar: false
+canLeaveNationDuringWar: false
+canSetCapitalDuringWar: true
+canSetCapitalIfEnemies: true
+canClaimDuringWar: true
+canSphereDuringWar: false
+
+# --- War warmup, sickness and admission ---
+warmupPeriod: 86400000
+warSickness: false
+warPlayerWhiteList: false
+whitelistDenyCommand: kick %player%
+
+# --- Town and nation rally caps ---
+rallyCapEnabled: false
+rallyCapSize: 10
+rallyCapApplyToNations: true
+
+# ==========================================
+# Flag attacks and explosions
+# ==========================================
+
+# --- Explosions and chest protection ---
+restrictExplosions: true
+onlyAllowExplosionsDuringWar: true
+explodeChests: true
+
+# --- Flag no-build area ---
+flagNoBuildDistance: 2
+flagNoBuildYOffset: 0
+
+# --- Capture time by territory ---
+chunkAttackTime: 1200
+chunkAttackHomeTime: 6000
+chunkAttackTimeSphere: 900
+chunkAttackFromWastelandMultiplier: 2.0
+chunkAttackHomeMultiplier: 2.0
+
+# --- Concurrent attacks and allied flags ---
+maxPlayerChunkAttacks: 1
+maxConcurrentAttacks: 0
+maxAttacksPerTown: 0
+allowBreakingAlliesFlags: false
+
+# --- Flag materials and placement ---
+flagTopBlockMaterial: COBBLED_DEEPSLATE
+flagBeaconSize: 6
+flagBeaconMinSkyLevel: 100
+flagBeaconSkyLevel: 50
+flagPlacementMinHeight: 30
+flagPlacementMaxHeight: 220
+
+# --- Flag visuals and boss bar ---
+displayEntityBeacon: false
+attackBossBarShowTimeRemaining: true
+staticFlagblock: true
+staticFlagblockMaterial: deepslate
+
+# --- Capture bonuses and flagged-chunk rules ---
+playersInChunkMultiplier: true
+allowUnownedAttack: true
+disableFlagRespawner: false
+allowAllInteractsInFlaggedChunks: false
+
+# --- Skirmish rules ---
+allowDestructionDuringSkirmish: false
+allowBorderSkirmishFromWilderness: true
+
+# ==========================================
+# Raids and supply lines
+# ==========================================
+
+# --- Border raids ---
+raid:
+  enabled: false
+
+  # --- Preparation, duration and eligibility ---
+  prepMinutes: 15
+  liveMinutes: 30
+  cancelDefenderWinWindowMinutes: 5
+  cooldownMinutes: 120
+  minDefenderOnline: 1
+
+  # --- Town-income rewards by winner ---
+  attackerReward: {}
+  defenderReward: {}
+
+# --- Supply routes and cut-off territory penalties ---
+supplyLines:
+  enabled: false
+
+  # --- Income and capture time multipliers ---
+  cutIncomeMultiplier: 0.25
+  cutCaptureTimeMultiplier: 0.5
+
+  # --- Blockades and wasteland routes ---
+  chunkBlockFraction: 0.5
+  wastelandRoutes: true
+
+# ==========================================
+# Truces, surrender and conquest
+# ==========================================
+
+# --- Truce and occupation duration ---
+trucePeriod: 86400000
+conquestPeriod: 259200000
+plunderPeriod: 259200000
+
+# --- Plunder and surrender ---
+plunderAmount: 25
+newStyleSurrenderConquer: false
+peaceNonWarTargets: false
+onlyKeepCapital: false
+
+# --- Annexation rules and whitelists ---
+annexDisabled: false
+canOnlyAnnexDuringWar: true
+instantAnnexOnCapture: true
+onlyWhitelistCanAnnex: true
+onlyWhitelistCanClaim: true
+
+# --- Occupied home travel and capital claims ---
+occupiedHomeTeleportMultiplier: 12.0
+disableClaimingCapital: false
+
+# ==========================================
+# PvP, friendly fire and mob protection
+# ==========================================
+
+# --- Town PvP switching and cooldown ---
+togglePVPMechanic: true
+canToggleTownPVP: true
+pvpToggleCooldown: 259200000
+
+# --- Friendly fire ---
+allowAllyFriendlyFire: true
+allowNationFriendlyFire: false
+noFriendlyFire: false
+
+# --- Mob and animal protection ---
+mobProtection: false
+protectedMobs:
+  - COW
+  - SHEEP
+protectedMobsIfPVPOff:
+  - HORSE
+  - SKELETON_HORSE
+  - DONKEY
+  - MULE
+
+  # ==========================================
+  # Outposts and ports
+  # ==========================================
+
+# --- Outpost warp times, text and cost ---
+outpostWarpTimeTier1: 60.0
+outpostWarpTimeTier2: 30.0
+outpostWarpTimeTier3: 15.0
+miningoutpostText:
+  line1: '&bmining outpost'
+  line2: '&3ore area'
+  line3: '&7mine safely'
+outpostTeleportCost:
+  diamond: 1
+  gold: 16
+
+# --- Port navigation and warp times ---
+seaLevel: 62.0
+portWarpTime: 5.0
+portWarpTimeTier1: 30.0
+portWarpTimeTier2: 15.0
+portWarpTimeTier3: 5.0
+
+# --- Boat requirement and town port policies ---
+allowPortWarpWithoutBoat: false
+portNotInShipMultiplier: 1.0
+portTownPolicies: false
+
+# ==========================================
+# Map exports and Dynmap
+# ==========================================
+
+# --- Dynmap export switches and paths ---
+dynmapCopyTowns: true
+dynmapdir: plugins/dynmap/web/nodes
+dynmapnodesconfig: plugins/dynmap/web/nodes/config.json
+dynmapworld: plugins/dynmap/web/nodes/world.json
+dynmaptowns: plugins/dynmap/web/nodes/towns.json
+dynmapNameoverrides: plugins/dynmap/web/nodes/nameoverrides.json
+# Installer for the Nodes editor and viewer.
+# --- Editor and viewer installer ---
+nodesWeb:
+  webRoot: plugins/dynmap/web
+  publicUrl: ''
+
+# ==========================================
+# Town contracts and market
+# ==========================================
+
+# --- Town contract cycles, slots and rewards ---
+contracts:
+  enabled: true
+  cycle_duration_minutes: 180
+  slots:
+    common: 3
+    uncommon: 2
+    rare: 1
+  reward_multiplier: 1.0
+  broadcast_on_complete: false
+  broadcast_format: '{player} completed a contract for {town}: {contract}'
+
+  # --- Contract inventory appearance ---
+  gui:
+    title: §8§l⚑ §r§6§lTown Contracts §8§l⚑
+    border_common: GRAY_STAINED_GLASS_PANE
+    border_uncommon: YELLOW_STAINED_GLASS_PANE
+    border_rare: PURPLE_STAINED_GLASS_PANE
+
+  # --- Contract feedback messages ---
+  messages:
+    not_in_town: You must be in a town to view contracts.
+    already_done: You already completed that contract this cycle.
+    missing_items: 'Missing items: {amount}x {material}'
+    success: 'Contract completed: {contract}!'
+    reward_added: 'Rewards added to town income: {rewards}'
+    system_disabled: Town contracts are currently disabled.
+
+  # --- Contract source ---
+  use_custom_contracts_only: false
+
+# --- Town item market currencies and listing limits ---
+market:
+  allowed-currencies:
+    - DIAMOND
+    - GOLD_INGOT
+    - IRON_INGOT
+    - EMERALD
+    - NETHERITE_INGOT
+    - COPPER_INGOT
+  max-listings-per-player: 20
+  listing-duration-days: 7
+
+  # --- Market tax and sanction rates ---
+  default-tax-rate: 0.05
+  sanction-price-multiplier-max: 5.0
+  sanction-price-multiplier-min: 0.1
+
+# ==========================================
+# Web overviews
+# ==========================================
+
+# --- Nation rally website ---
+rallyOverview:
+  enabled: true
+  bindAddress: 0.0.0.0
+  webPort: 8096
+  samplePeriodMs: 60000
+  historyDays: 30
+
+  # --- Rally page layout and sorting ---
+  pageTitle: Nation Rally Stats
+  defaultLastHours: 24
+  maxRows: 200
+  autoRefreshSeconds: 30
+  sortBy: avg
+
+# --- Town market website ---
+marketOverview:
+  enabled: true
+  bindAddress: 0.0.0.0
+  webPort: 8097
+  historyDays: 60
+
+  # --- Market page layout and sorting ---
+  pageTitle: Town Market Overview
+  defaultLastHours: 24
+  maxRows: 200
+  autoRefreshSeconds: 30
+  sortBy: units
+
+# ==========================================
+# Calendar and exploration
+# ==========================================
+
+# --- Calendar and event announcements ---
+calendar:
+  enabled: true
+  timezone: ''
+  dailyAnnounceTime: '12:00'
+
+  # --- Join messages and reminders ---
+  showOnJoin: true
+  remindMinutes: 10
+  catchUpMinutes: 30
+  announcementHours: 24
+
+# --- Discovery range and activation ---
+poi:
+  enabled: true
+  checkTicks: 40
+  defaultRadius: 12
+  activationDelaySeconds: 120
+
+  # --- Discovery announcements and visibility ---
+  announceFirstDiscovery: true
+  showTotal: true
+
+  # --- Discovery rewards by type ---
+  defaultMoney:
+    village: '5'
+    ruin: '5'
+    cave: '5'
+    shrine: '10'
+    shipwreck: '5'
+    dungeon: '15'
+    camp: '10'
+
+  # --- Milestone titles ---
+  milestones:
+    5: '&7Wanderer'
+    10: '&aExplorer'
+    25: '&bPathfinder'
+    50: '&6Cartographer'
+
+# ==========================================
+# Skills and progression
+# ==========================================
+
+# --- XP rates and level curve ---
+skills:
+  enabled: true
+  xpMultiplier: 1.0
+  maxLevel: 50
+  baseXp: 50
+  levelExponent: 1.5
+
+  # --- Bonus drops and HUD ---
+  extraDropPercentPerLevel: 0.5
+  extraDropPercentMax: 25
+  showActionBar: true
+
+  # --- Mining XP ---
+  mining:
+    xp:
+      COAL_ORE: 2
+      COPPER_ORE: 2
+      IRON_ORE: 3
+      GOLD_ORE: 4
+      LAPIS_ORE: 3
+      REDSTONE_ORE: 3
+      EMERALD_ORE: 8
+      DIAMOND_ORE: 10
+      NETHER_QUARTZ_ORE: 3
+      NETHER_GOLD_ORE: 2
+      ANCIENT_DEBRIS: 15
+
+  # --- Farming XP ---
+  farming:
+    xp:
+      WHEAT: 2
+      CARROTS: 2
+      POTATOES: 2
+      BEETROOTS: 2
+      NETHER_WART: 3
+      MELON: 3
+      PUMPKIN: 3
+
+  # --- Woodcutting XP ---
+  woodcutting:
+    xpPerLog: 2
+
+  # --- Hunting XP ---
+  hunting:
+    animalXp: 1
+    monsterXp: 2
+    xp:
+      ENDERMAN: 5
+      WITCH: 6
+
+  # --- Titles earned by skill level ---
+  titles:
+    mining:
+      10: '&7Prospector'
+      25: '&6Master Miner'
+    farming:
+      10: '&aFarmhand'
+      25: '&2Master Farmer'
+    woodcutting:
+      10: '&eLumberjack'
+      25: '&6Master Woodsman'
+    hunting:
+      10: '&cHunter'
+      25: '&4Master Hunter'
+
+# ==========================================
+# Duels, bounties and supply drops
+# ==========================================
+
+# --- Duel requests, countdown and time limit ---
+duel:
+  enabled: true
+  requestSeconds: 60
+  countdownSeconds: 5
+  maxSeconds: 300
+
+  # --- Wagers and Elo ratings ---
+  allowWager: true
+  maxWager: 0
+  eloStart: 1000
+  eloK: 32
+
+  # --- Kits, announcements and command permissions ---
+  kitOnly: false
+  defaultKit: ''
+  announce: true
+  allowedCommands:
+    - msg
+    - tell
+    - w
+    - r
+    - reply
+
+# --- Payouts and contribution limits ---
+bounties:
+  enabled: true
+  rewardDestination: TOWN_INCOME
+  townlessPlayerFallback: true
+  maxStacksPerBounty: 36
+  maxContributionsPerTarget: 100
+
+  # --- Accepted reward materials ---
+  allowedMaterials:
+    - DIAMOND
+    - EMERALD
+    - COAL
+    - RAW_IRON
+    - RAW_GOLD
+    - RAW_COPPER
+    - LAPIS_LAZULI
+    - REDSTONE
+    - QUARTZ
+    - DIAMOND_ORE
+    - DEEPSLATE_DIAMOND_ORE
+    - EMERALD_ORE
+    - DEEPSLATE_EMERALD_ORE
+    - IRON_ORE
+    - DEEPSLATE_IRON_ORE
+    - GOLD_ORE
+    - DEEPSLATE_GOLD_ORE
+    - COPPER_ORE
+    - DEEPSLATE_COPPER_ORE
+    - COAL_ORE
+    - DEEPSLATE_COAL_ORE
+    - LAPIS_ORE
+    - DEEPSLATE_LAPIS_ORE
+    - REDSTONE_ORE
+    - DEEPSLATE_REDSTONE_ORE
+    - NETHER_GOLD_ORE
+    - NETHER_QUARTZ_ORE
+    - ANCIENT_DEBRIS
+
+  # --- Preset reward packages ---
+  packages:
+    diamonds:
+      - DIAMOND:16
+    emeralds:
+      - EMERALD:32
+    mixed-ores:
+      - RAW_IRON:64
+      - RAW_GOLD:16
+      - DIAMOND:8
+
+  # --- Eligibility and cooldowns ---
+  minimumAgeSeconds: 60
+  placementCooldownSeconds: 30
+  claimCooldownSeconds: 3600
+  minimumAccountAgeSeconds: 3600
+
+  # --- Abuse checks and disabled worlds ---
+  blockSameTown: true
+  blockSameNation: true
+  blockAllies: true
+  blockSameIp: true
+  disabledWorlds: []
+
+  # --- Bounty announcements ---
+  broadcastPlacement: true
+  broadcastClaims: true
+
+# --- Drop schedule, warnings and despawn ---
+supplyDrops:
+  enabled: true
+  intervalMinutes: 180
+  jitterMinutes: 30
+  warningSeconds: 300
+  despawnMinutes: 20
+  fallHeight: 60
+
+  # --- Claim timer, loot and participation ---
+  claimSeconds: 60
+  claimRadius: 4.0
+  itemsPerDrop: 3
+  minPlayersOnline: 5
+  discord: true
+
+# ==========================================
+# Chat and placeholders
+# ==========================================
+
+# --- PlaceholderAPI integration ---
+placeholderapiEnabled: true
+
+# --- Local and roleplay chat ranges ---
+localChatDistance: 100.0
+rpChatDistance: 100.0
+
+# --- Chat prefix and formatting ---
+greenText: true
+chatPrefixSuffixShow: true
+chatPrefixMode: 0
+chatPrefix: ''
+
+# --- Hover text ---
+chatJSONFormattingHoverTown: ''
+chatJSONFormattingHoverPlayer: ''
+chatJSONFormattingHoverPrepend: ''
+
+# ==========================================
+# Discord and message templates
+# ==========================================
+
+# --- Discord integration and relay switches ---
+activateDiscord: false
+relayWar: false
+relayGlobalChat: false
+relayFlagWar: false
+relayThirdParty: false
+relayTownUpkeepDeletions: true
+
+# --- Discord channels ---
+warChannelName: wars
+globalChatChannelName: chat-relay
+flagWarChannelName: flagwar
+thirdPartyPlaceholderName: colonies
+
+# --- Relay prefixes ---
+warMessagePrefix: __**War**__ »
+globalChatMessagePrefix: Global »
+flagWarMessagePrefix: __**FlagWar**__ »
+thirdPartyPlaceholderMessagePrefix: __**Colonies**__ »
+
+# --- Conquest, surrender and war messages ---
+messageTownPlunder: '**%surrendertown%** has been conquered and plundered by **%invader%**'
+messageTownConquer: '**%surrendertown%** has been conquered by **%invader%**'
+messageJoinWar: ':heavy_plus_sign: **%nation%** joined war against **%defender%**!'
+messageEnd: The war between **%nation%** and **%defender%** has ended.
+messageSurrender: '**%surrendertown%** has surrendered to **%invader%**.'
+messageWarDeclare: ':crossed_swords: **%attacker%** declared war against **%defender%**!'
+
+# --- Flag attack and capture messages ---
+messageFlagWarAttack: '[War] %player% is liberating %townattacked% at (%x%, %y%, %z%)'
+messageFlagWarAttackLiberate: '[War] %player% is attacking %townattacked% at (%x%,
+  %y%, %z%)'
+messageFlagWarDefend: '[War] Attack at (%x%, %y%, %z%) defeated by %player%'
+messageFlagWarLiberateTerritory: '[War] %attacker% liberated territory (id=%id%) from
+  %occupier%!'
+messageFlagWarCaptureTerritory: '[War] %attacker% captured territory (id=%id%) from
+  %town%!'
+messageFlagWarSucceedLiberate: '[War] %attacker% liberated chunk (%x%, %z%) from %occupier%!'
+messageFlagWarSucceedDefend: '[War] %attacker% defended chunk (%x%, %z%) against %occupier%!'
+messageFlagWarSucceedCapture: '[War] %attacker% captured chunk (%x%, %z%) from %town%!'
+
+# ==========================================
+# Discord webhooks and event relays
+# ==========================================
+
+# --- War and flag webhooks ---
+discordWebhookWar: ''
+
+discordWebhookFlagWar: ''
+
+discordRelayWar: true
+
+discordRelayFlagWar: true
+
+# --- Raid and warzone webhooks ---
+discordWebhookRaids: ''
+
+discordWebhookWarzones: ''
+
+discordRelayRaids: true
+
+discordRelayWarzones: true
+
+# ==========================================
+# SQL audit storage
+# ==========================================
+
+# --- Database audit switch and connection ---
+enableSQL: false
+sql:
+  ip: localhost
+  port: 3306
+  database: nodes
+  username: root
+  password: password
+
+# Tertiary staff-supervised war mode; independent of classic/NodesWar.
+# Enabled by default for new installations; existing server choices are preserved.
+war:
+  enabled: true
+  keyPointWars:
+    enabled: true
+    stateFile: data/war/key-point-battles.json
+    defaultRadius: 96
+    maxRadius: 256
+    maxPointsPerWar: 12
+    warSicknessSeconds: 600
+    abandonOnExit: true

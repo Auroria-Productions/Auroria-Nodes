@@ -1,0 +1,16 @@
+nodeTypes:
+  # Core type is auto-assigned to a town's home territory.
+  core:
+    priority: 10
+    icon: "diamond"
+    income_total_multiplier: 1.1
+    attacker_time_multiplier: 0.8
+
+  warzone:
+    priority: 20
+    attacker_time_multiplier: 0.9
+    neighbor_attacker_time_multiplier: 0.9
+
+  miningtower:
+    priority: 30
+    ore_total_multiplier: 1.5
